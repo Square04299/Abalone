@@ -61,7 +61,7 @@ public:
      * \param m_posInitial the position initiale of the board.
      * \param m_posFinal the position final of the board.
      */
-    moveMarble(String m_posInitial, Sting m_posFinal);
+    void moveMarble(String m_posInitial, Sting m_posFinal);
 
 };
 
