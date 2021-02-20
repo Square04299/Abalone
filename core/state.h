@@ -1,11 +1,19 @@
-#ifndef STATE_H
+﻿#ifndef STATE_H
 #define STATE_H
 
 
-class state
-{
-public:
-    state();
+/*!
+ * \brief Énumeration who represents the state of the game
+ * \arg config, time foe the game to set up the board and the marble.
+ * \arg turnwhite, only white piece can be moved by the white player
+ * (exept the one moved but pushing the opponent color).
+ * \arg turnblack, only black piece can be moved by the black player
+ * (exept the one moved but pushing the opponent color).
+ * \arg over, will stop any move after this state has been activated and the winner screen
+ * will show up.
+ */
+enum State{
+    CONFIG, TURNWHITE, TURNBLACK, OVER
 };
 
 #endif // STATE_H

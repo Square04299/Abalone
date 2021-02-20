@@ -1,11 +1,13 @@
-#ifndef DIRECTION_H
+﻿#ifndef DIRECTION_H
 #define DIRECTION_H
 
 
-class direction
-{
-public:
-    direction();
+/*!
+ * \brief Énumeration who represents the direction where the marble can move
+ */
+enum Direction{
+    NORTH, NORTHEAST, NORTHWEST, SOUTH, SOUTHEAST, SOUTHWEST, WEST, EAST
 };
+
 
 #endif // DIRECTION_H
