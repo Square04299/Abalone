@@ -1,6 +1,11 @@
-#ifndef GAME_H
+﻿#ifndef GAME_H
 #define GAME_H
 
+#include "board.h"
+#include "state.h"
+#include "player.h"
+
+#include <vector>
 
 class game
 {
@@ -8,19 +13,19 @@ private:
     /*!
      * \brief Attribute representing the status of the game
      */
-    Board board;
+    board m_board;
     /*!
      * \brief Attribute representing the stat of the game.
      */
-    State state;
+    State m_state;
     /*!
      * \brief Attribute representing the Player 1 and 2.
      */
-    Player(m_player1, m_player2);
+    std::vector<player*> m_player;
      /*!
      * \brief Attribute representing the current Player of the game.
      */
-    Player(currentPlayer);
+    player* m_currentPlayer;
 
 
 public:
@@ -61,7 +66,7 @@ public:
      * \param m_posInitial the position initiale of the board.
      * \param m_posFinal the position final of the board.
      */
-    void moveMarble(String m_posInitial, Sting m_posFinal);
+    void moveMarble(std::string m_posInitial, std::string m_posFinal);
 
 };
 
