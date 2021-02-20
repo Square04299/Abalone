@@ -1,4 +1,4 @@
-#ifndef SQUARE_H
+﻿#ifndef SQUARE_H
 #define SQUARE_H
 
 #include "color.h"
@@ -14,7 +14,7 @@ private:
     /*!
      * \brief Attribute representing the position (x,y,z) for the square.
      */
-    Position m_pos;
+    position m_pos;
     /*!
      * \brief Attribute representing the color of the marble.
      */
@@ -30,7 +30,7 @@ public:
      * \param m_pos the position of the square
      * \param m_color the color of the square
      */
-    square(Position m_pos, Color m_color);
+    square(position m_pos, Color m_color);
     /*!
      * \brief Getter of the attribute Color.
      */
@@ -45,7 +45,7 @@ public:
      * \brief Getter of the attribute isEmpty.
      * \return Class Position.
      */
-    Position getPosition();
+    position getPosition();
     /*!
      * \brief Change the position of the square is a marble is moved.
      */
