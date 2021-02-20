@@ -1,12 +1,13 @@
-#ifndef BOARD_H
+﻿#ifndef BOARD_H
 #define BOARD_H
 
+#include "position.h"
 
 class board
 {
 private:
 
-/   *!
+    /*!
      * \ .
      */
     ;
@@ -14,7 +15,7 @@ private:
     /*!
      * \brief Attribute representing the new position.
      */
-    Position newPosition;
+    position newPosition;
 
     /*!
      * \ .
@@ -36,7 +37,7 @@ public:
      * \brief method  announces the position the marble on the board.
      * \param String announces the position.
      */
-    void calculePosition(String);
+    void calculePosition(std::string);
 
     /*!
      * \brief method that add the marble in the board
