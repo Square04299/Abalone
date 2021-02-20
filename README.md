@@ -17,21 +17,24 @@
 
 ### Analyse
 
-![Analyse Abalone](Analyse.png)
+![Analyse Abalone](screenshot.png)
 
 #### Remise
 
 > Remise 1
-> `git commit -a -m "modelization release"`
-> `git tag -a modelization "modelization release"`
-> `git push`
+
+`git commit -a -m "modelization release"`
+`git tag -a modelization -m "modelization release"`
+`git push --follow-tags`
 
 > Remise 2
-> `git commit -a -m "console release"`
-> `git tag -a modelization "console release"`
-> `git push`
+
+`git commit -a -m "console release"`
+`git tag -a modelization -m "console release"`
+`git push --follow-tags`
 
 > Remise 3
-> `git commit -a -m "gui release"`
-> `git tag -a modelization "gui release"`
-> `git push`
+
+`git commit -a -m "gui release"`
+`git tag -a modelization -m "gui release"`
+`git push --follow-tags`
