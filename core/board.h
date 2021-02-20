@@ -3,6 +3,8 @@
 
 #include "position.h"
 
+#include <string>
+
 class board
 {
 private:
