@@ -16,7 +16,7 @@ private:
      * \brief Attribute will say how many marble are down.
      * \result Interger that if is = to 0 will end the game.
      */
-    int nbDeadMarble;
+    int m_nbDeadMarble;
 public:
     player();
     /*!
@@ -30,7 +30,7 @@ public:
      * \brief Getter of the value of the nbDeadMarble attribute.
      * \return Interger is equal to 0 will end the game.
      */
-    int getDeadMarble;
+    int getDeadMarble();
     /*!
      * \brief Getter of the color attribute.
      * \return color, black or white can't be NONE.
