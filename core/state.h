@@ -1,5 +1,6 @@
 ﻿#ifndef STATE_H
 #define STATE_H
+#include <iostream>
 
 
 /*!
@@ -15,5 +16,10 @@
 enum State{
     CONFIG, TURNWHITE, TURNBLACK, OVER
 };
+
+/*!
+ * \brief Method which will print the color in letter
+ */
+std::ostream& operator<<(std::ostream &os, const State &state);
 
 #endif // STATE_H
