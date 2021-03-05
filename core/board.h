@@ -2,8 +2,11 @@
 #define BOARD_H
 
 #include "position.h"
+#include "square.h"
 
 #include <string>
+#include <map>
+#include <vector>
 
 class board
 {
@@ -12,7 +15,7 @@ private:
     /*!
      * \ .
      */
-    ;
+     std::map<std::string, square> Board;
 
     /*!
      * \brief Attribute representing the new position.
@@ -22,11 +25,11 @@ private:
     /*!
      * \ .
      */
-    ;
+    std::map<std::string, int> calCoordonnée;
     /*!
      * \ .
      */
-    ;
+    std::vector<square> nextMove;
 
 
 public:

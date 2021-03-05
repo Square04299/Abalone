@@ -18,7 +18,7 @@ private:
     /*!
      * \brief Attribute representing the color of the marble.
      */
-    Color color;
+    const Color m_color;
 
 public:
     /*!
@@ -34,7 +34,7 @@ public:
     /*!
      * \brief Getter of the attribute Color.
      */
-    Color getColor();
+    Color getColor() const;
     /*!
      * \brief Getter of the attribute isEmpty.
      * \return is the square is empty or not.
@@ -47,7 +47,7 @@ public:
      */
     position getPosition();
     /*!
-     * \brief Change the position of the square is a marble is moved.
+     * \brief Change the position of the square if a marble is moved.
      */
     void changePosition(int x, int y, int z);
 };
