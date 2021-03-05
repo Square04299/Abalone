@@ -1,4 +1,4 @@
-#ifndef POSITION_H
+﻿#ifndef POSITION_H
 #define POSITION_H
 
 class position
@@ -22,6 +22,10 @@ public:
      * \brief  
      */
     position();
+    /*!
+     * \brief
+     */
+    position(int x, int y, int z);
     /*!
      * \brief Getter of the value of the m_x attribute.
      * \return Interger for one of the cardinal position (x).
