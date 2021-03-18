@@ -1,4 +1,5 @@
 ﻿#include "square.h"
+#include <stdbool.h>
 
 square::square():m_color(Color(NONE)){
 
@@ -24,8 +25,18 @@ position square::getPosition(){
     return m_pos;
 }
 
-void square::changePosition(int x, int y, int z){
+void square::setIsEmpty(bool x){
+    m_isEmpty = x;
+}
 
+void square::setColor(Color x){
+    m_color = x;
+}
+
+void square::changePosition(int x, int y, int z){
+    m_pos.setX(x);
+    m_pos.setY(y);
+    m_pos.setZ(z);
 }
 
 
