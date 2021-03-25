@@ -1,4 +1,4 @@
-﻿#include "color.h"
+﻿#include "Color.h"
 
 std::ostream& operator<<(std::ostream &os, const Color &color){
         switch(color)

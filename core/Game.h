@@ -1,13 +1,13 @@
 ﻿#ifndef GAME_H
 #define GAME_H
 
-#include "board.h"
-#include "state.h"
-#include "player.h"
+#include "Board.h"
+#include "State.h"
+#include "Player.h"
 
 #include <vector>
 
-class game
+class Game
 {
 private:
     /*!
