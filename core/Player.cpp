@@ -20,7 +20,7 @@ Color Player::getColor(){
 }
 
 bool Player::isPlayerDead(){
-    return m_nbDeadMarble = 0;
+    return m_nbDeadMarble == 0;
 }
 
 void Player::removeMarble(){

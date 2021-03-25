@@ -17,13 +17,13 @@ private:
     /*!
      * \brief 2D table where all the marble are.
      */
-    Marble* m_position[SIZE][SIZE];
+    Marble* m_board[SIZE][SIZE];
     /*!
-     * \brief Total amount of marble that can be put on a table.
+     * \brief Total amount of marble that can be of a certain color.
      */
-    unsigned m_nbMarble;
+    static constexpr unsigned m_nbMarble = 14;
     /*!
-     * \brief Convertion map letter to a number.
+     * \brief Convertion map MAJ letter to a number.
      */
     std::map<std::string,int> m_convertionMap;
 
@@ -33,9 +33,15 @@ public:
      */
     Board();
     /*!
+   * \brief Destructor of the Board class.
+   */
+    ~Board();
+    /*!
      * \brief Methode Initialise all the marble on a board to the Color NONE.
      */
     void initMarblePLace();
+    void initMapConvertion();
+    void initNullMarble();
     /*!
      * \brief Methode Initialise all the black marble on a board to the correct position.
      */
