@@ -40,7 +40,13 @@ public:
      * \brief Methode Initialise all the marble on a board to the Color NONE.
      */
     void initMarblePLace();
+    /*!
+     * \brief Methode Initialise the conversion map.
+     */
     void initMapConvertion();
+    /*!
+     * \brief Methode Initialise all the empty to NULL POINTER.
+     */
     void initNullMarble();
     /*!
      * \brief Methode Initialise all the black marble on a board to the correct position.
@@ -57,20 +63,32 @@ public:
      * \param String that will tell the final position.
      * \param Color tell if the player can move the initial marble.
      */
-    void slideMarble(std::string,std::string,Color);
+    void slideOneMarble(std::string,std::string,Color);
+    /*!
+     * \brief Methode While look if the two marble aren't to far from each other.
+     * \param int Difference between initial X and final X.
+     * \param int Difference between initial Y and final Y.
+     */
+    bool diffMarble(const int, const int);
+    /*!
+     * \brief Methode While be call if you need to move multiple marble.
+     * \param Pair<int><int> that will tell the initial position.
+     * \param Pair<int,int> that will tell the final position.
+     */
+    void slideMultipleMarble(std::pair<int,int>, std::pair<int,int>, const int, const int);
     /*!
      * \brief Methode While use the map to conver the two value given in the string
      * to find the position of the marble in the board.
      * \param String announces the position.
      */
-    void convertStringToHex(std::string);
+    std::pair<int,int> convertStringToHex(std::string);
     /*!
      * \brief  Methode that will tell us if the player can move that marble
      * meaning it must be the same color for the inital move.
      * \param Pair Whith the X and Y of the marble.
      * \param Color tell if the player can move the marble.
      */
-    bool isPlayableMarble(std::pair<int,int>,Color);
+    bool isPlayableMarble(std::vector<Color>);
 
 };
 
