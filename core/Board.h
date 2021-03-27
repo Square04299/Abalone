@@ -63,7 +63,7 @@ public:
      * \param String that will tell the final position.
      * \param Color tell if the player can move the initial marble.
      */
-    void slideOneMarble(std::string,std::string,Color);
+    Color slideOneMarble(std::string,std::string,Color);
     /*!
      * \brief Methode While look if the two marble aren't to far from each other.
      * \param int Difference between initial X and final X.
@@ -75,7 +75,7 @@ public:
      * \param Pair<int><int> that will tell the initial position.
      * \param Pair<int,int> that will tell the final position.
      */
-    void slideMultipleMarble(std::pair<int,int>, std::pair<int,int>, const int, const int);
+    Color slideMultipleMarble(std::pair<int,int>, std::pair<int,int>, const int, const int);
     /*!
      * \brief Methode While use the map to conver the two value given in the string
      * to find the position of the marble in the board.
