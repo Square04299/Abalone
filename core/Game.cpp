@@ -42,6 +42,7 @@ const Player &Game::end(){
     if (winner == nullptr) {
         throw std::runtime_error("There is no winner for the moment");
     }
+    m_board.~Board();
     return *winner;
 }
 
