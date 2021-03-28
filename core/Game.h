@@ -13,7 +13,7 @@ private:
     /*!
      * \brief Attribute representing the status of the game
      */
-    board m_board;
+    Board m_board;
     /*!
      * \brief Attribute representing the stat of the game.
      */
@@ -21,11 +21,11 @@ private:
     /*!
      * \brief Attribute representing the Player 1 and 2.
      */
-    std::vector<player*> m_player;
+    std::vector<Player> m_players;
      /*!
      * \brief Attribute representing the current Player of the game.
      */
-    player* m_currentPlayer;
+    unsigned m_currentPlayer;
 
 
 public:
@@ -33,40 +33,33 @@ public:
      /*!
      * \brief Constructor of the game class.
      */
-    game();
-
+    Game();
      /*!
      * \brief method that announces the start of the game.
+     * Verify if all the condition are met to start playing the game.
      */
     void startGame();
-
     /*!
-     * \brief method that innitialise the game.
+     * \brief brief isGameOver check if all conditions are completed to end game.
+     * the game is over if a player losses 3 marble.
+     * \return the winner if game is over, nullptr else.
      */
-    void intGame();
-
+    const Player * isGameOver();
     /*!
-     * \brief method that announces the end of the game.
+     * \brief end finish the game.
+     * \return the winner player.
+     * \throw logic_error if the game isn't end step.
+     * \throw runtime_error if there is no winner.
      */
-    void endGame();
-
-    /*!
-     * \brief method that announces the end of the game.
-     * \return the winner of the game therefore the status of the game.
-     */
-    void isOver();
-
+    const Player &end();
     /*!
      * \brief method representing the next Player of the game.
      */
-
     void nextPlayer();
     /*!
-     * \brief method that moves the marble.
-     * \param m_posInitial the position initiale of the board.
-     * \param m_posFinal the position final of the board.
+     * \brief method representing the next Player of the game.
      */
-    void moveMarble(std::string m_posInitial, std::string m_posFinal);
+    void moveMarble(std::string, std::string, Color);
 
 };
 

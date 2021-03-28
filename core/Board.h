@@ -27,6 +27,8 @@ private:
      */
     std::map<std::string,int> m_convertionMap;
 
+    std::vector<bool> m_configConfirmation;
+
 public:
       /*!
      * \brief Constructor of the Board class.
@@ -39,23 +41,24 @@ public:
     /*!
      * \brief Methode Initialise all the marble on a board to the Color NONE.
      */
-    void initMarblePLace();
+    bool initMarblePLace();
     /*!
      * \brief Methode Initialise the conversion map.
      */
-    void initMapConvertion();
+    bool initMapConvertion();
     /*!
      * \brief Methode Initialise all the empty to NULL POINTER.
      */
-    void initNullMarble();
+    bool initNullMarble();
     /*!
      * \brief Methode Initialise all the black marble on a board to the correct position.
      */
-    void initPlaceBlackMarble();
+    bool initPlaceBlackMarble();
     /*!
      * \brief Methode Initialise all the white marble on a board to the correct position.
      */
-    void initPlaceWhiteMarble();
+    bool initPlaceWhiteMarble();
+    bool isSetUp();
     /*!
      * \brief Methode While move a marble from the X position to the Y position
      * whith the color color.

@@ -3,35 +3,40 @@
 #include <memory>
 #include <stdexcept>
 
-Board::Board(){
+Board::Board():
+    m_configConfirmation(std::vector<bool>())
+{
     //Creation of board 9x9
-    initMarblePLace();
+    m_configConfirmation.push_back(initMarblePLace());
     //Creation of the convertion Map
-    initMapConvertion();
+    m_configConfirmation.push_back(initMapConvertion());
     //Null Pointer where no marble should excist
-    initNullMarble();
+    m_configConfirmation.push_back(initNullMarble());
     //Place all black marble
-    initPlaceBlackMarble();
+    m_configConfirmation.push_back(initPlaceBlackMarble());
     //Place all white marble
-    initPlaceWhiteMarble();
+    m_configConfirmation.push_back(initPlaceWhiteMarble());
 }
 
 Board::~Board(){
-    for (int i = 0; i < 9; i++){
+    for (int i = 1; i < 9; i++){
         delete[] & m_board[i];
     }
     delete[] & m_board;
 }
 
-void Board::initMarblePLace(){
+bool Board::initMarblePLace(){
+    bool validate = false;
     for (int i = 1; i < 9; i++){
         for (int j = 1; j < 9; j++){
             m_board[i][j] = new Marble();
+            validate = true;
         }
     }
+    return validate;
 }
 
-void Board::initMapConvertion(){
+bool Board::initMapConvertion(){
     m_convertionMap["A"] = 9;
     m_convertionMap["B"] = 8;
     m_convertionMap["C"] = 7;
@@ -41,9 +46,10 @@ void Board::initMapConvertion(){
     m_convertionMap["G"] = 3;
     m_convertionMap["H"] = 2;
     m_convertionMap["I"] = 1;
+    return true;
 }
 
-void Board::initNullMarble(){
+bool Board::initNullMarble(){
     int i = 1;
     int j = 4;
     while (i < 4){
@@ -68,32 +74,53 @@ void Board::initNullMarble(){
         j += k;
         i--;
     }
+    return (k!=0)? true:false;
 }
 
-void Board::initPlaceBlackMarble(){
+bool Board::initPlaceBlackMarble(){
+    bool v1 = false;
+    bool v2 = false;
     for (int i = 8; i < 9; i++){
         for (int j = 1; j < 9; j++){
             if (m_board[i][j] != nullptr){
                 m_board[i][j]->setColor(Color(BLACK));
+                v1= true;
             }
         }
     }
     for (int j = 3; j < 5; j++){
         m_board[7][j]->setColor(Color(BLACK));
+        v2 = true;
     }
+    return v1 = (v2 == true);
 }
 
-void Board::initPlaceWhiteMarble(){
+bool Board::initPlaceWhiteMarble(){
+    bool v1 = false;
+    bool v2 = false;
     for (int i = 1; i < 2; i++){
         for (int j = 1; j < 9; j++){
             if (m_board[i][j] != nullptr){
                 m_board[i][j]->setColor(Color(WHITE));
+                v1= true;
             }
         }
     }
     for (int j = 5; j < 7; j++){
         m_board[3][j]->setColor(Color(WHITE));
+        v2 = true;
     }
+    return v1 = (v2 == true);
+}
+
+bool Board::isSetUp(){
+    int i = 0;
+    for (bool var : m_configConfirmation) {
+        if (var == true) {
+            i++;
+        }
+    }
+    return (i = m_configConfirmation.size()) ? true:false;
 }
 
 Color Board::slideOneMarble(std::string a, std::string b, Color color){
