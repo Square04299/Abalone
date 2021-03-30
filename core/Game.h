@@ -6,6 +6,7 @@
 #include "Player.h"
 
 #include <vector>
+#include <memory>
 
 class Game
 {
@@ -40,6 +41,11 @@ public:
      */
     void startGame();
     /*!
+    * \brief method that will annouces if the game is ready to start.
+    * \return true, if everyting is ready.
+    */
+    bool isReady();
+    /*!
      * \brief brief isGameOver check if all conditions are completed to end game.
      * the game is over if a player losses 3 marble.
      * \return the winner if game is over, nullptr else.
@@ -59,7 +65,27 @@ public:
     /*!
      * \brief method representing the next Player of the game.
      */
-    void moveMarble(std::string, std::string, Color);
+    void moveMarble(std::string, std::string);
+    /*!
+     * \brief getBoard
+     * \return the board of the game
+     */
+    Board getBoard();
+    /*!
+     * \brief getState
+     * \return the game state in progress
+     */
+    State getState();
+    /*!
+     * \brief getPlayers
+     * \return the list of players
+     */
+    std::vector<Player> getPlayers();
+    /*!
+     * \brief getCurrent
+     * \return the current player playing
+     */
+    Player getCurrent();
 
 };
 

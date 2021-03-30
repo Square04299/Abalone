@@ -11,5 +11,11 @@ CONFIG += console
 LIBS += -L../lib -llibcore \
 
 SOURCES += main.cpp \
+    Observable.cpp \
+    Observer.cpp \
+    View.cpp
 
-HEADERS +=
+HEADERS += \
+    Observable.h \
+    Observer.h \
+    View.h

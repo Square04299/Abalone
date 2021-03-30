@@ -19,16 +19,17 @@ Board::Board():
 }
 
 Board::~Board(){
-    for (int i = 1; i < 9; i++){
+    for (int i = 0; i < 9; i++){
         delete[] & m_board[i];
     }
+    std::cout << "Deleting Board /!\\ " << std::endl;
     delete[] & m_board;
 }
 
 bool Board::initMarblePLace(){
     bool validate = false;
-    for (int i = 1; i < 9; i++){
-        for (int j = 1; j < 9; j++){
+    for (int i = 0; i < 9; i++){
+        for (int j = 0; j < 9; j++){
             m_board[i][j] = new Marble();
             validate = true;
         }
@@ -37,59 +38,59 @@ bool Board::initMarblePLace(){
 }
 
 bool Board::initMapConvertion(){
-    m_convertionMap["A"] = 9;
-    m_convertionMap["B"] = 8;
-    m_convertionMap["C"] = 7;
-    m_convertionMap["D"] = 6;
-    m_convertionMap["E"] = 5;
-    m_convertionMap["F"] = 4;
-    m_convertionMap["G"] = 3;
-    m_convertionMap["H"] = 2;
-    m_convertionMap["I"] = 1;
+    m_convertionMap["A"] = 8;
+    m_convertionMap["B"] = 7;
+    m_convertionMap["C"] = 6;
+    m_convertionMap["D"] = 5;
+    m_convertionMap["E"] = 4;
+    m_convertionMap["F"] = 3;
+    m_convertionMap["G"] = 2;
+    m_convertionMap["H"] = 1;
+    m_convertionMap["I"] = 0;
     return true;
 }
 
 bool Board::initNullMarble(){
-    int i = 1;
-    int j = 4;
-    while (i < 4){
-        while (j < 1){
+    int i = 0;
+    int j = 3;
+    while (i < 3){
+        while (j < 0){
             m_board[i][j] = nullptr;
             j--;
         }
-        j = 4;
+        j = 3;
         j -= i;
         i++;
     }
-    i = 9;
-    j = 6;
+    i = 8;
+    j = 5;
     int k = 0;
-    while (i < 6){
-        while (j < 9){
+    while (i < 5){
+        while (j < 8){
             m_board[i][j] = nullptr;
             j++;
         }
-        j = 6;
+        j = 5;
         k++;
         j += k;
         i--;
     }
-    return (k!=0)? true:false;
+    return (k=0)? true:false;
 }
 
 bool Board::initPlaceBlackMarble(){
     bool v1 = false;
     bool v2 = false;
-    for (int i = 8; i < 9; i++){
-        for (int j = 1; j < 9; j++){
+    for (int i = 7; i < 9; i++){
+        for (int j = 0; j < 9; j++){
             if (m_board[i][j] != nullptr){
                 m_board[i][j]->setColor(Color(BLACK));
                 v1= true;
             }
         }
     }
-    for (int j = 3; j < 5; j++){
-        m_board[7][j]->setColor(Color(BLACK));
+    for (int j = 2; j < 5; j++){
+        m_board[6][j]->setColor(Color(BLACK));
         v2 = true;
     }
     return v1 = (v2 == true);
@@ -98,16 +99,16 @@ bool Board::initPlaceBlackMarble(){
 bool Board::initPlaceWhiteMarble(){
     bool v1 = false;
     bool v2 = false;
-    for (int i = 1; i < 2; i++){
-        for (int j = 1; j < 9; j++){
+    for (int i = 0; i < 2; i++){
+        for (int j = 0; j < 9; j++){
             if (m_board[i][j] != nullptr){
                 m_board[i][j]->setColor(Color(WHITE));
                 v1= true;
             }
         }
     }
-    for (int j = 5; j < 7; j++){
-        m_board[3][j]->setColor(Color(WHITE));
+    for (int j = 4; j < 7; j++){
+        m_board[2][j]->setColor(Color(WHITE));
         v2 = true;
     }
     return v1 = (v2 == true);
@@ -117,6 +118,7 @@ bool Board::isSetUp(){
     int i = 0;
     for (bool var : m_configConfirmation) {
         if (var == true) {
+            std::cout << "True"<< std::endl;
             i++;
         }
     }
@@ -183,7 +185,7 @@ Color Board::slideMultipleMarble(std::pair<int, int> x, std::pair<int, int> y, i
     int limitY = 0;
     std::vector<Color> listColor;
 
-    while ((1 <= tempX && tempX <= 9) && (1 <= tempY && tempY <= 9)){
+    while ((0 <= tempX && tempX <= 8) && (0 <= tempY && tempY <= 8)){
         listColor.push_back(m_board[tempX + limitX][tempY + limitY]->getColor());
         tempX += diffX;
         tempY += diffY;
@@ -200,7 +202,7 @@ Color Board::slideMultipleMarble(std::pair<int, int> x, std::pair<int, int> y, i
         //set final to none color in vector
         m_board[tempX][tempY]->setColor(Color(NONE));
         for (Color var : listColor){
-            if ((1 <= temp2X && temp2X <= 9) && (1 <= temp2Y && temp2Y <= 9)){
+            if ((0 <= temp2X && temp2X <= 8) && (0 <= temp2Y && temp2Y <= 8)){
                 if (var != Color(NONE)){
                     m_board[temp2X + limitX][temp2Y + limitY]->setColor(var);
                     temp2X += diffX;
@@ -218,8 +220,10 @@ Color Board::slideMultipleMarble(std::pair<int, int> x, std::pair<int, int> y, i
 }
 
 std::pair<int, int> Board::convertStringToHex(std::string a){
-    std::string str1 = a.substr(0, 1);
+    std::string str1 = &a[0];//a.substr(0, 1);
     std::string str2 = &a[1];
+    //TODO Give G5 and F4 but Print F7??
+    std::cout << str1 << std::endl;
     int i1 = m_convertionMap.at(str1);
     int i2 = std::atoi(str2.c_str());
     return std::make_pair(i1, i2);

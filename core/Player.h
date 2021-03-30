@@ -35,7 +35,7 @@ public:
      * \brief Getter of the color attribute.
      * \return color, black or white can't be NONE.
      */
-    Color getColor();
+    Color getColor() const;
     /*!
      * \brief Chech what value has m_nbDeadMarble.
      * \return True if the value of m_nbDeadMarble is equal to 0.

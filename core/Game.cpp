@@ -6,6 +6,11 @@ Game::Game():
     m_players(std::vector<Player>()),
     m_currentPlayer(0)
 {
+    //Add the two player
+    Player p1 = *new Player(WHITE,3);
+    Player p2 = *new Player(BLACK,3);
+    m_players.push_back(p1);
+    m_players.push_back(p2);
 }
 
 
@@ -16,19 +21,23 @@ void Game::startGame(){
     if(m_players.size()!=2) {
             throw std::logic_error("To start a game, you need at least two players");
         }
-    if (!(m_board.isSetUp())) {
+    if (!(isReady())) {
         throw std::logic_error("The Game configuration had a problem \n"
                                "Restart the Game");
     }
+
     m_state = MOVE;
+}
+
+bool Game::isReady(){
+    return m_board.isSetUp();
 }
 
 const Player * Game::isGameOver(){
     const Player *winner = nullptr;
-    for (Player & var : m_players) {
+    for (Player var : m_players) {
         if (var.getDeadMarble() == 0) {
             winner = &var;
-            m_state = OVER;
         }
     }
     return winner;
@@ -57,16 +66,36 @@ void Game::nextPlayer(){
     m_state = MOVE;
 }
 
-void Game::moveMarble(std::string iXY, std::string fXY, Color color){
+void Game::moveMarble(std::string iXY, std::string fXY){
     if (m_state != MOVE) {
         throw std::logic_error("The Game hasn't finished the previous task \n"
                                "Finish the previous request before moving a Marble");
     }
-    Color marbleToRemove = m_board.slideOneMarble(iXY, fXY, color);
+    Color marbleToRemove = m_board.slideOneMarble(iXY, fXY, m_players[m_currentPlayer].getColor());
     for (Player var : m_players) {
         if (var.getColor() == marbleToRemove) {
             var.removeMarble();
         }
     }
-    m_state = NEXTPLAYER;
+    if (isGameOver() == nullptr) {
+        m_state = OVER;
+    }else{
+        m_state = NEXTPLAYER;
+    }
+}
+
+Board Game::getBoard(){
+    return m_board;
+}
+
+State Game::getState(){
+    return m_state;
+}
+
+std::vector<Player> Game::getPlayers(){
+    return m_players;
+}
+
+Player Game::getCurrent(){
+    return m_players[m_currentPlayer];
 }

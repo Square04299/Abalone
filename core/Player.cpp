@@ -15,7 +15,7 @@ int Player::getDeadMarble(){
     return m_nbDeadMarble;
 }
 
-Color Player::getColor(){
+Color Player::getColor() const{
     return m_marbleColor;
 }
 
