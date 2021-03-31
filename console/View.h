@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <limits>
+
 
 #include "Color.h"
 
@@ -23,6 +25,7 @@ public:
     void rules();
     bool alphabet(char);
     bool numberV(unsigned);
+    char toUpperCase(char);
 };
 
 #endif // VIEW_H

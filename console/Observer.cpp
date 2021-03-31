@@ -28,7 +28,7 @@ void Observer::updateObserver(State &state){
 
 void Observer::configGame(){
     View::title();
-    View::displayStr("Placement des billes ...\n");
+    View::displayStr("Placing Marble on Board ...\n");
 
 }
 
@@ -69,11 +69,15 @@ char Observer::convCtoC(Color c){
    G + + O O O + +
   F + + + + + + + +
  E + + + + + + + + +
-  D + + + + + + + + 9
-   C + + @ @ @ + + 8
-    B @ @ @ @ @ @ 7
-     A @ @ @ @ @ 6
-        1 2 3 4 5
+  D + + + + + + + + 8
+   C + + @ @ @ + + 7
+    B @ @ @ @ @ @ 6
+     A @ @ @ @ @ 5
+        0 1 2 3 4
+
+        G4 F3
+        I5 H4
+
 */
 
 void Observer::displayBoard(){
@@ -84,9 +88,11 @@ View::displayStr("Board incoming ...");
 void Observer::move(){
     View::displayStr("===== Moving Marble =====");
     View::displayStr("What position would you like to move your marble too ?");
-    std::string m1 = askCoord("depart");
-    std::string m2 = askCoord("arrivee");
-    m_model.moveMarble(m1,m2);
+    std::string m1 = askCoord("for your first Marble");
+    std::string m2 = askCoord("to where your marble needs to go");
+            std::cout << "Start : " << m1 << std::endl;
+            std::cout << "Finish : " << m2 << std::endl;
+    //m_model.moveMarble(m1,m2);
 }
 void Observer::end(){
     const Player &winner = m_model.end();

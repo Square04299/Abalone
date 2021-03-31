@@ -33,56 +33,68 @@ void View::displayStrC(std::string p, Color c){
 }
 
 std::string View::askCoord(std:: string x){
-    std::cout << "Veillez entre une lettre de " << x << std::endl;
+    std::cout << "Enter a letter between (A - I) " << x << std::endl;
     char letter;
-    while (!(std::cin >> letter || alphabet(letter))) {
+    std::cin >> letter;
+   while (alphabet(letter)) {
         std::cin.clear();
-        std::cin.ignore();
-        std::cout << "Lettre invalide. Veuillez entre une nouvelle lettre"<< std::endl;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalide Letter. Enter a new Letter between (A - I)"<< std::endl;
+        std::cin >> letter;
     }
-    std::cout << "Veillez entre une nombre de " << x << std::endl;
+   if (std::islower(letter)) {
+       letter = toUpperCase(letter);//Budget lowerCase to upperCase
+   }
+    std::cout << "Enter a number between (0 - 8)" << x << std::endl;
     unsigned number;
-    while (!(std::cin >> number || numberV(number))) {
+    std::cin >> number;
+    while (!(numberV(number))) {
         std::cin.clear();
-        std::cin.ignore();
-        std::cout << "Numero invalide. Veuillez entre une nouvelle lettre"<< std::endl;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalide Number. Enter a new Letter between (0 - 8)"<< std::endl;
+        std::cin >> number;
     }
-    return (std::to_string(putchar(std::toupper(letter))) + std::to_string(number));
+    std::string result;
+    result.push_back(letter);
+    result += std::to_string(number);
+    return result;
 }
 
 bool View::alphabet(char letter){
-    putchar(std::toupper(letter));
+    if (std::islower(letter)) {
+        letter = toUpperCase(letter);//Budget lowerCase to upperCase
+    }
     if (isalpha(letter)) {
         switch (letter) {
         case 'A':
-            return true;
+            return false;
             break;
         case 'B':
-            return true;
+            return false;
             break;
         case 'C':
-            return true;
+            return false;
             break;
         case 'D':
-            return true;
+            return false;
             break;
         case 'E':
-            return true;
+            return false;
             break;
         case 'F':
-            return true;
+            return false;
             break;
         case 'G':
-            return true;
+            return false;
             break;
         case 'H':
-            return true;
+            return false;
             break;
         case 'I':
-            return true;
+            return false;
             break;
         default:
-            return false;
+            return true;
             break;
         }
     };
@@ -90,8 +102,12 @@ bool View::alphabet(char letter){
 }
 
 bool View::numberV(unsigned number){
-    if (0<= number || number >= 8) {
+    if (number < 9) {
         return true;
     }
     return false;
+}
+
+char View::toUpperCase(char x){
+    return (x = x - 32);
 }
