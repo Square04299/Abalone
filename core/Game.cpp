@@ -49,7 +49,7 @@ const Player &Game::end(){
     }
     const Player *winner = isGameOver();
     if (winner == nullptr) {
-        throw std::runtime_error("There is no winner for the moment");
+        throw std::logic_error("There is no winner for the moment");
     }
     m_board.~Board();
     return *winner;
@@ -77,7 +77,7 @@ void Game::moveMarble(std::string iXY, std::string fXY){
             var.removeMarble();
         }
     }
-    if (isGameOver() == nullptr) {
+    if (isGameOver() != nullptr) {
         m_state = OVER;
     }else{
         m_state = NEXTPLAYER;
