@@ -51,31 +51,27 @@ bool Board::initMapConvertion(){
 }
 
 bool Board::initNullMarble(){
-    int i = 0;
-    int j = 3;
-    while (i < 3){
-        while (j < 0){
-            m_board[i][j] = nullptr;
-            j--;
-        }
-        j = 3;
-        j -= i;
-        i++;
+    for (int i=0;i<4 ;i++ ) {
+        m_board[0][i]->setColor(Color::OUT);
     }
-    i = 8;
-    j = 5;
-    int k = 0;
-    while (i < 5){
-        while (j < 8){
-            m_board[i][j] = nullptr;
-            j++;
-        }
-        j = 5;
-        k++;
-        j += k;
-        i--;
+    for (int i=0;i<3 ;i++ ) {
+        m_board[1][i]->setColor(Color::OUT);
     }
-    return (k=0)? true:false;
+    for (int i=0;i<2 ;i++ ) {
+        m_board[2][i]->setColor(Color::OUT);
+    }
+    m_board[3][0]->setColor(Color::OUT);
+    m_board[5][8]->setColor(Color::OUT);
+    for (int i=7;i<9 ;i++ ) {
+        m_board[6][i]->setColor(Color::OUT);
+    }
+    for (int i=6;i<9 ;i++ ) {
+        m_board[7][i]->setColor(Color::OUT);
+    }
+    for (int i=5;i<9 ;i++ ) {
+        m_board[8][i]->setColor(Color::OUT);
+    }
+    return ((m_board[1][2]->getColor() == Color::OUT) && (m_board[8][6]->getColor() == Color::OUT))? true:false;
 }
 
 bool Board::initPlaceBlackMarble(){
@@ -83,14 +79,14 @@ bool Board::initPlaceBlackMarble(){
     bool v2 = false;
     for (int i = 7; i < 9; i++){
         for (int j = 0; j < 9; j++){
-            if (m_board[i][j] != nullptr){
-                m_board[i][j]->setColor(Color(BLACK));
+            if (m_board[i][j]->getColor() != Color::OUT){
+                m_board[i][j]->setColor(Color::BLACK);
                 v1= true;
             }
         }
     }
     for (int j = 2; j < 5; j++){
-        m_board[6][j]->setColor(Color(BLACK));
+        m_board[6][j]->setColor(Color::BLACK);
         v2 = true;
     }
     return v1 = (v2 == true);
@@ -101,14 +97,14 @@ bool Board::initPlaceWhiteMarble(){
     bool v2 = false;
     for (int i = 0; i < 2; i++){
         for (int j = 0; j < 9; j++){
-            if (m_board[i][j] != nullptr){
-                m_board[i][j]->setColor(Color(WHITE));
+            if (m_board[i][j]->getColor() != Color::OUT){
+                m_board[i][j]->setColor(Color::WHITE);
                 v1= true;
             }
         }
     }
     for (int j = 4; j < 7; j++){
-        m_board[2][j]->setColor(Color(WHITE));
+        m_board[2][j]->setColor(Color::WHITE);
         v2 = true;
     }
     return v1 = (v2 == true);
@@ -118,7 +114,6 @@ bool Board::isSetUp(){
     int i = 0;
     for (bool var : m_configConfirmation) {
         if (var == true) {
-            std::cout << "True"<< std::endl;
             i++;
         }
     }
@@ -129,7 +124,7 @@ Color Board::slideOneMarble(std::string a, std::string b, Color color){
     auto const initial = convertStringToHex(a);
     auto const final = convertStringToHex(b);
 
-    Color losingMarble = Color(NONE);
+    Color losingMarble = Color::NONE;
 
     int iX = initial.first,
         iY = initial.second,
@@ -140,10 +135,10 @@ Color Board::slideOneMarble(std::string a, std::string b, Color color){
 
     if (m_board[iX][iY]->getColor() == color){
         if (diffMarble(diffX, diffY)){
-            if (m_board[fX][fY]->getColor() != Color(NONE)) {
+            if (m_board[fX][fY]->getColor() != Color::NONE) {
                 losingMarble = slideMultipleMarble(initial, final, diffX, diffY);
             }else{
-                m_board[iX][iY]->setColor(Color(NONE));
+                m_board[iX][iY]->setColor(Color::NONE);
                 m_board[fX][fY]->setColor(color);
             }
         }else{
@@ -179,51 +174,64 @@ Color Board::slideMultipleMarble(std::pair<int, int> x, std::pair<int, int> y, i
     //Look for the Majority
     //Change all the marble according to the list
 
-    int tempX = x.first;
-    int tempY = x.second;
-    int limitX = 0;
-    int limitY = 0;
+    int tempIX = x.first;
+    int tempIY = x.second;
+    int tempFX = y.first;
+    int tempFY = y.second;
+
     std::vector<Color> listColor;
 
-    while ((0 <= tempX && tempX <= 8) && (0 <= tempY && tempY <= 8)){
-        listColor.push_back(m_board[tempX + limitX][tempY + limitY]->getColor());
-        tempX += diffX;
-        tempY += diffY;
-        limitX = diffX;
-        limitY = diffY;
+    while ((0 <= tempIX && tempIX <= 8) && (0 <= tempIY && tempIY <= 8)){
+        Color validationC = m_board[tempIX][tempIY]->getColor();
+        switch (validationC) {
+        case WHITE:
+            listColor.push_back(WHITE);
+            break;
+        case BLACK:
+            listColor.push_back(BLACK);
+            break;
+        case NONE:
+            listColor.push_back(NONE);
+            break;
+        case OUT:
+            listColor.push_back(OUT);
+            break;
+        default:
+            break;
+        }
+        tempIX += diffX;
+        tempIY += diffY;
     }
-    int temp2X = y.first;
-    int temp2Y = y.second;
-    limitX = 0;
-    limitY = 0;
+    tempIX = x.first;
+    tempIY = x.second;
+    Color ancien = Color::NONE;
     if (isPlayableMarble(listColor)){
-        //Change initial to none
-        //for vector size
-        //set final to none color in vector
-        m_board[tempX][tempY]->setColor(Color(NONE));
+        m_board[tempIX][tempIY]->setColor(Color::NONE);
         for (Color var : listColor){
-            if ((0 <= temp2X && temp2X <= 8) && (0 <= temp2Y && temp2Y <= 8)){
-                if (var != Color(NONE)){
-                    m_board[temp2X + limitX][temp2Y + limitY]->setColor(var);
-                    temp2X += diffX;
-                    temp2Y += diffY;
-                    limitX = diffX;
-                    limitY = diffY;
+            if (var != OUT) {
+                if ((0 <= tempFX && tempFX <= 8) && (0 <= tempFY && tempFY <= 8)){
+                    if (var != Color::NONE){
+                        m_board[tempFX][tempFY]->setColor(var);
+                        tempFX += diffX;
+                        tempFY += diffY;
+                        ancien = var;
+                    }
+                }else{
+                    std::cout << "Color to remove point :" << ancien << std::endl;
+                    return ancien;
                 }
-                break;
-            }else{
-                return var;
             }
+            std::cout << "Color to remove point :" << ancien << std::endl;
+            return ancien;
         }
     }
-    return Color(NONE);
+    std::cout << "Color to remove point :" << Color::NONE << std::endl;
+    return Color::NONE;
 }
 
 std::pair<int, int> Board::convertStringToHex(std::string a){
-    std::string str1 = &a[0];//a.substr(0, 1);
+    std::string str1 = a.substr(0, 1);//&a[0];//a.substr(0, 1);
     std::string str2 = &a[1];
-    //TODO Give G5 and F4 but Print F7??
-    std::cout << str1 << std::endl;
     int i1 = m_convertionMap.at(str1);
     int i2 = std::atoi(str2.c_str());
     return std::make_pair(i1, i2);
@@ -232,41 +240,41 @@ std::pair<int, int> Board::convertStringToHex(std::string a){
 bool Board::isPlayableMarble(std::vector<Color> vectorColor){
     int countBlack = 0;
     int countWhite = 0;
-    Color precedant = Color(NONE);
+    Color precedant = Color::NONE;
     bool change = false;
     bool alreadyChange = false;
 
     for (Color var : vectorColor){
-        if (var == Color(NONE)){
+        if ((var == Color::NONE) || (var == Color::OUT)){
             break;
         }
-        if (var == Color(BLACK)){
+        if (var == Color::BLACK){
             if (!change && !alreadyChange){
-                if (var == precedant || var != Color(NONE)){
-                    precedant = Color(BLACK);
+                if (var == precedant || var != Color::NONE){
+                    precedant = Color::BLACK;
                     countBlack++;
                 }else{
                     if (change){
                         alreadyChange = true;
                         return false;
                     }
-                    precedant = Color(BLACK);
+                    precedant = Color::BLACK;
                     change = true;
                     countBlack++;
                 }
             }
         }
-        if (var == Color(WHITE)){
+        if (var == Color::WHITE){
             if (!change && !alreadyChange){
-                if (var == precedant || var != Color(NONE)){
-                    precedant = Color(WHITE);
+                if (var == precedant || var != Color::NONE){
+                    precedant = Color::WHITE;
                     countWhite++;
                 }else{
                     if (change){
                         alreadyChange = true;
                         return false;
                     }
-                    precedant = Color(WHITE);
+                    precedant = Color::WHITE;
                     change = true;
                     countWhite++;
                 }
@@ -274,13 +282,13 @@ bool Board::isPlayableMarble(std::vector<Color> vectorColor){
         }
     }
     int res = 0;
-    if (vectorColor[0] == Color(BLACK)){
+    if (vectorColor[0] == Color::BLACK){
         res = countBlack - countWhite;
         if (res > 3){
             return false;
         }
     }
-    if (vectorColor[0] == Color(WHITE)){
+    if (vectorColor[0] == Color::WHITE){
         res = countWhite - countBlack;
         if (res > 3){
             return false;
