@@ -51,7 +51,7 @@ const Player &Game::end(){
     if (winner == nullptr) {
         throw std::logic_error("There is no winner for the moment");
     }
-    m_board.~Board();
+    //m_board.~Board();
     return *winner;
 }
 
@@ -72,9 +72,9 @@ void Game::moveMarble(std::string iXY, std::string fXY){
                                "Finish the previous request before moving a Marble");
     }
     Color marbleToRemove = m_board.slideOneMarble(iXY, fXY, m_players[m_currentPlayer].getColor());
-    for (Player var : m_players) {
-        if (var.getColor() == marbleToRemove) {
-            var.removeMarble();
+    for (unsigned i = 0; i<m_players.size() ;i++ ) {
+        if (m_players[i].getColor() == marbleToRemove) {
+            m_players[i].removeMarble();
         }
     }
     if (isGameOver() != nullptr) {
