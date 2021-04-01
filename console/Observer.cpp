@@ -74,14 +74,16 @@ char Observer::convCtoC(Color c){
     B @ @ @ @ @ @ 6
      A @ @ @ @ @ 5
         0 1 2 3 4
-
         G4 F3
-        I5 H4
+        I5 I4
 
 */
-
+/* Must do
+ * i 5 i 4 a 1 a 0 h 4 h 3 b 4 b 5 h 7 h 8 //BLACK WIN
+ * i 8 h 7 a 0 b 1 h 7 g 6 b 1 c 2 //Breaks
+*/
 void Observer::displayBoard(){
-View::displayStr("Board incoming ...");
+    View::displayStr("Board incoming ...");
 }
 
 
@@ -92,10 +94,11 @@ void Observer::move(){
     std::string m2 = askCoord("to where your marble needs to go");
             std::cout << "Start : " << m1 << std::endl;
             std::cout << "Finish : " << m2 << std::endl;
-    //m_model.moveMarble(m1,m2);
+    m_model.moveMarble(m1,m2);
 }
 void Observer::end(){
     const Player &winner = m_model.end();
+    Color win = winner.getColor();
     View::title();
-    View::displayWinner("Congratulation ", " player you won the game",winner.getColor());
+    View::displayWinner("Congratulation ", " player you won the game",win);
 }
