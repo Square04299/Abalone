@@ -58,6 +58,11 @@ public:
      * \brief Methode Initialise all the white marble on a board to the correct position.
      */
     bool initPlaceWhiteMarble();
+    /*!
+     * \brief isSetUp Will add in a vector each time a board operation for the set up
+     * is completed
+     * \return True if all the value in the vector is true;
+     */
     bool isSetUp();
     /*!
      * \brief Methode While move a marble from the X position to the Y position
@@ -92,6 +97,11 @@ public:
      * \param Color tell if the player can move the marble.
      */
     bool isPlayableMarble(std::vector<Color>);
+    /*!
+     * \brief getLineColor
+     * \return Vectore return 1 line of the Board
+     */
+    std::vector<Color> getLineColor(int);
 
 };
 

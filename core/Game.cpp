@@ -84,8 +84,14 @@ void Game::moveMarble(std::string iXY, std::string fXY){
     }
 }
 
-Board Game::getBoard(){
+Board& Game::getBoard(){
     return m_board;
+}
+
+std::vector<Color> Game::getBoardLine(int x){
+    std::vector<Color> temp;
+    temp = m_board.getLineColor(x);
+    return temp;
 }
 
 State Game::getState(){

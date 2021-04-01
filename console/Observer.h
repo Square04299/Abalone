@@ -29,7 +29,7 @@ private:
     void configGame();
     void healthPlayer(std::vector<Player>);
     void displayPlaying(Player);
-    char convCtoC(Color);
+    std::string convCtoC(Color);
     Color getColor(int,int);
     void displayBoard();
     void displayNextPlayer();

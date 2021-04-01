@@ -70,7 +70,12 @@ public:
      * \brief getBoard
      * \return the board of the game
      */
-    Board getBoard();
+    Board& getBoard();
+    /*!
+     * \brief getBoardLine
+     * \return Vector return 1 line of the board
+     */
+    std::vector<Color> getBoardLine(int);
     /*!
      * \brief getState
      * \return the game state in progress

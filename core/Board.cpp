@@ -120,6 +120,14 @@ bool Board::isSetUp(){
     return (i = m_configConfirmation.size()) ? true:false;
 }
 
+std::vector<Color> Board::getLineColor(int x){
+    std::vector<Color> line;
+    for (int i =0 ; i < 9; i++) {
+        line.push_back(m_board[x][i]->getColor());
+    }
+    return line;
+}
+
 Color Board::slideOneMarble(std::string a, std::string b, Color color){
     auto const initial = convertStringToHex(a);
     auto const final = convertStringToHex(b);
