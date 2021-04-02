@@ -19,12 +19,13 @@ Board::Board():
 }
 
 void Board::clear(){
+    std::cout << "Deleting Board /!\\ " << std::endl;
     for (int i = 0; i < 11; i++){
         for (int j = 0; j < 11; j++) {
             delete m_board[i][j];
         }
+        std::cout << "." << std::endl;
     }
-    std::cout << "Deleting Board /!\\ " << std::endl;
 }
 
 bool Board::initMarblePLace(){

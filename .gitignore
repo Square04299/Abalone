@@ -23,6 +23,8 @@
 
 # pas de fichier .exe
 *.exe
+*.a
+*.dll
 
 # pas de dossier release
 release/
@@ -34,8 +36,7 @@ debug/
 build-*/
 
 # pas de dossier de doc html / latex
-doc/html/
-doc/latex/
+doc/Doxygen/
 
 # pas de fichier .user
 *.user
@@ -48,6 +49,3 @@ Makefile.*
 
 # pas de fichier .qmake.stash
 .qmake.stash
-lib/libcore.dll
-
-lib/liblibcore.a
