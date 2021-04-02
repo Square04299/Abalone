@@ -35,6 +35,10 @@ public:
      * \brief Constructor of the game class.
      */
     Game();
+    /*!
+     * \brief clearPlayer delete the player
+     */
+    void clearPlayer();
      /*!
      * \brief method that announces the start of the game.
      * Verify if all the condition are met to start playing the game.
@@ -91,6 +95,11 @@ public:
      * \return the current player playing
      */
     Player getCurrent();
+
+    Game(const Game& other) = delete;
+    Game(Game&& other) = delete;
+    Game&operator=(const Game& other) = delete;
+    Game&operator=(Game&& other) = delete;
 
 };
 

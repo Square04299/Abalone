@@ -33,12 +33,22 @@ bool Game::isReady(){
     return m_board.isSetUp();
 }
 
+void Game::clearPlayer(){
+    std::cout << "Deleting Player /!\\ .";
+    delete &m_players[0];
+    std::cout << ".." << std::endl;
+    m_board.clear();
+}
+
 const Player * Game::isGameOver(){
     const Player *winner = nullptr;
-    for (Player var : m_players) {
+    const Player *ancien = &m_players[1];
+    for (Player &var : m_players) {
         if (var.getDeadMarble() == 0) {
-            winner = &var;
-        }
+            winner = ancien;
+        }else{
+            ancien = &var;
+         }
     }
     return winner;
 }
@@ -51,7 +61,6 @@ const Player &Game::end(){
     if (winner == nullptr) {
         throw std::logic_error("There is no winner for the moment");
     }
-    //m_board.~Board();
     return *winner;
 }
 
