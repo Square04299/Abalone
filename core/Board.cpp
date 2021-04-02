@@ -224,9 +224,6 @@ Color Board::slideMultipleMarble(std::pair<int, int> x, std::pair<int, int> y, i
     if (isPlayableMarble(listColor)){
         m_board[tempIX][tempIY]->setColor(Color::NONE);
         for (Color var : listColor) {
-            std::cout << var << std::endl;
-        }
-        for (Color var : listColor) {
            if ((0 <= tempFX && tempFX <= 11) && (0 <= tempFY && tempFY <= 11)){
                switch (var) {
                case WHITE:
@@ -247,22 +244,17 @@ Color Board::slideMultipleMarble(std::pair<int, int> x, std::pair<int, int> y, i
                    break;
                case NONE:
                    return NONE;
-                   break;
                case OUT:
                    //Never should enter because of if OUT condition
                    break;
                default:
                    return NONE;
-                   break;
                }
            }
         }
         return ancien;
     }
-    std::cout << "Color to remove point (NONE): " << Color::NONE << std::endl;
-    for (Color var : listColor) {
-        std::cout << var << std::endl;
-    }
+    std::cout << "Wasn't able to move this marble logic_error" << std::endl;
     return Color::NONE;
 }
 
@@ -277,60 +269,67 @@ std::pair<int, int> Board::convertStringToHex(std::string a){
 bool Board::isPlayableMarble(std::vector<Color> vectorColor){
     int countBlack = 0;
     int countWhite = 0;
-    Color precedant = Color::NONE;
-    bool change = false;
-    bool alreadyChange = false;
+    bool foundNONE = false;
 
     for (Color var : vectorColor){
-        if ((var == Color::NONE) || (var == Color::OUT)){
+        switch (var) {
+        case WHITE:
+            if (!foundNONE) {
+                countWhite++;
+            }
             break;
-        }
-        if (var == Color::BLACK){
-            if (!change && !alreadyChange){
-                if (var == precedant || var != Color::NONE){
-                    precedant = Color::BLACK;
-                    countBlack++;
-                }else{
-                    if (change){
-                        alreadyChange = true;
-                        return false;
-                    }
-                    precedant = Color::BLACK;
-                    change = true;
-                    countBlack++;
-                }
+        case BLACK:
+            if (!foundNONE) {
+                countBlack++;
             }
-        }
-        if (var == Color::WHITE){
-            if (!change && !alreadyChange){
-                if (var == precedant || var != Color::NONE){
-                    precedant = Color::WHITE;
-                    countWhite++;
-                }else{
-                    if (change){
-                        alreadyChange = true;
-                        return false;
-                    }
-                    precedant = Color::WHITE;
-                    change = true;
-                    countWhite++;
-                }
+            break;
+        case NONE:
+            if (!foundNONE) {
+                foundNONE = true;
             }
+            break;
+        case OUT:
+            break;
+        default:
+            break;
         }
     }
     int res = 0;
     if (vectorColor[0] == Color::BLACK){
         res = countBlack - countWhite;
-        if (res > 3){
-            return false;
+        switch (res) {
+            case 0:
+                return false;
+            case 1:
+                return true;
+            case 2:
+                return true;
+            case 3:
+                if (foundNONE) {
+                    return true;
+                }
+                return false;
+            default:
+                return false;
         }
     }
     if (vectorColor[0] == Color::WHITE){
         res = countWhite - countBlack;
-        if (res > 3){
-            return false;
+        switch (res) {
+            case 0:
+                return false;
+            case 1:
+                return true;
+            case 2:
+                return true;
+            case 3:
+                if (foundNONE) {
+                    return true;
+                }
+                return false;
+            default:
+                return false;
         }
     }
-
-    return (res = 1) ? true : false;
+    return false;
 }
