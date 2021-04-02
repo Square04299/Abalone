@@ -33,7 +33,7 @@ public:
     /*!
    * \brief Destructor of the Board class.
    */
-    ~Board();
+    void clear();
     /*!
      * \brief Methode Initialise all the marble on a board to the Color NONE.
      */
@@ -67,7 +67,7 @@ public:
      * \param String that will tell the final position.
      * \param Color tell if the player can move the initial marble.
      */
-    Color slideOneMarble(std::string,std::string,Color);
+    Color slideOneMarble(const std::string &, const std::string &, Color);
     /*!
      * \brief Methode While look if the two marble aren't to far from each other.
      * \param int Difference between initial X and final X.

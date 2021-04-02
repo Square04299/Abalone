@@ -18,12 +18,13 @@ Board::Board():
     m_configConfirmation.push_back(initPlaceWhiteMarble());
 }
 
-Board::~Board(){
-    for (int i = 0; i < 9; i++){
-        delete[] & m_board[i];
+void Board::clear(){
+    for (int i = 0; i < 11; i++){
+        for (int j = 0; j < 11; j++) {
+            delete m_board[i][j];
+        }
     }
     std::cout << "Deleting Board /!\\ " << std::endl;
-    delete[] & m_board;
 }
 
 bool Board::initMarblePLace(){
@@ -82,39 +83,31 @@ bool Board::initNullMarble(){
 }
 
 bool Board::initPlaceBlackMarble(){
-    bool v1 = false;
-    bool v2 = false;
     for (int i = 8; i < 10; i++){
         for (int j = 1; j < 10; j++){
             if (m_board[i][j]->getColor() != Color::OUT){
                 m_board[i][j]->setColor(Color::BLACK);
-                v1= true;
             }
         }
     }
     for (int j = 3; j < 6; j++){
         m_board[7][j]->setColor(Color::BLACK);
-        v2 = true;
     }
-    return v1 = (v2 == true);
+    return true;
 }
 
 bool Board::initPlaceWhiteMarble(){
-    bool v1 = false;
-    bool v2 = false;
     for (int i = 1; i < 3; i++){
         for (int j = 1; j < 10; j++){
             if (m_board[i][j]->getColor() != Color::OUT){
                 m_board[i][j]->setColor(Color::WHITE);
-                v1= true;
             }
         }
     }
     for (int j = 5; j < 8; j++){
         m_board[3][j]->setColor(Color::WHITE);
-        v2 = true;
     }
-    return v1 = (v2 == true);
+    return true;
 }
 
 bool Board::isSetUp(){
@@ -135,7 +128,7 @@ std::vector<Color> Board::getLineColor(int x){
     return line;
 }
 
-Color Board::slideOneMarble(std::string a, std::string b, Color color){
+Color Board::slideOneMarble(std::string const &a, std::string const&b, Color color){
     auto const initial = convertStringToHex(a);
     auto const final = convertStringToHex(b);
 
@@ -196,24 +189,24 @@ Color Board::slideMultipleMarble(std::pair<int, int> x, std::pair<int, int> y, i
 
     std::vector<Color> listColor;
 
-    while ((0 <= tempIX && tempIX <= 11) && (0 <= tempIY && tempIY <= 11)){
+    while ((0 <= tempIX && tempIX < 11) && (0 <= tempIY && tempIY < 11)){
         Color validationC = m_board[tempIX][tempIY]->getColor();
         switch (validationC) {
-        case WHITE:
-            listColor.push_back(WHITE);
-            break;
-        case BLACK:
-            listColor.push_back(BLACK);
-            break;
-        case NONE:
-            listColor.push_back(NONE);
-            break;
-        case OUT:
-            listColor.push_back(OUT);
-            break;
-        default:
-            listColor.push_back(NONE);
-            break;
+            case WHITE:
+                listColor.push_back(WHITE);
+                break;
+            case BLACK:
+                listColor.push_back(BLACK);
+                break;
+            case NONE:
+                listColor.push_back(NONE);
+                break;
+            case OUT:
+                listColor.push_back(OUT);
+                break;
+            default:
+                listColor.push_back(NONE);
+                break;
         }
         tempIX += diffX;
         tempIY += diffY;
@@ -224,7 +217,7 @@ Color Board::slideMultipleMarble(std::pair<int, int> x, std::pair<int, int> y, i
     if (isPlayableMarble(listColor)){
         m_board[tempIX][tempIY]->setColor(Color::NONE);
         for (Color var : listColor) {
-           if ((0 <= tempFX && tempFX <= 11) && (0 <= tempFY && tempFY <= 11)){
+           if ((0 <= tempFX && tempFX < 11) && (0 <= tempFY && tempFY < 11)){
                switch (var) {
                case WHITE:
                    if (m_board[tempFX][tempFY]->getColor() != OUT) {
@@ -270,6 +263,7 @@ bool Board::isPlayableMarble(std::vector<Color> vectorColor){
     int countBlack = 0;
     int countWhite = 0;
     bool foundNONE = false;
+    int res;
 
     for (Color var : vectorColor){
         switch (var) {
@@ -294,7 +288,6 @@ bool Board::isPlayableMarble(std::vector<Color> vectorColor){
             break;
         }
     }
-    int res = 0;
     if (vectorColor[0] == Color::BLACK){
         res = countBlack - countWhite;
         switch (res) {
