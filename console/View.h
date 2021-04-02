@@ -12,16 +12,13 @@
 
 class View
 {
-    std::string whiteChar = "@";
-    std::string blackChar = "O";
-    std::string noneChar = "+";
 public:
     View();
     void title() const;
-    void displayWinner(std::string, std::string, Color) const;
-    void displayStr(std::string);
-    void displayStrC(std::string, Color);
-    std::string askCoord(std::string);
+    void displayWinner(std::string const& , std::string const &, Color) const;
+    void displayStr(std::string const &);
+    void displayStrC(const std::string &, Color);
+    std::string askCoord(const std::string &);
     void rules();
     bool alphabet(char);
     bool numberV(unsigned);

@@ -20,19 +20,19 @@ std::cout<<std::endl;
 
 
 
-void View::displayWinner(std::string t1, std::string t2, Color color) const{
+void View::displayWinner(std::string const &t1, std::string const &t2, Color color) const{
     std::cout << t1 << color << t2 << std::endl;
 }
 
-void View::displayStr(std::string s){
+void View::displayStr(std::string const &s){
     std::cout << s << std::endl;
 }
 
-void View::displayStrC(std::string p, Color c){
+void View::displayStrC(std::string const &p, Color c){
     std::cout<< c << p <<std::endl;
 }
 
-std::string View::askCoord(std:: string x){
+std::string View::askCoord(std:: string const &x){
     std::cout << "Enter a letter between (A - I) " << x << std::endl;
     char letter;
     std::cin >> letter;
