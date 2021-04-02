@@ -10,4 +10,5 @@ SOURCES += main.cpp \
     scenario.cpp
 
 HEADERS += \
+    array.hpp \
     catch.hpp \

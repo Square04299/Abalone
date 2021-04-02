@@ -7,7 +7,7 @@
  * \brief Énumeration who represents a color that can have a support (white or dark)
  */
 enum Color{
-    WHITE, BLACK, NONE
+    WHITE, BLACK, NONE, OUT
 };
 
 /*!

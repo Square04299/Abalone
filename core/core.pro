@@ -5,21 +5,17 @@ TARGET = libcore
 DESTDIR = ../lib
 
 HEADERS += \
-    board.h \
-    color.h \
-    direction.h \
-    game.h \
-    player.h \
-    position.h \
-    square.h \
-    state.h
+    Board.h \
+    Color.h \
+    Game.h \
+    Marble.h \
+    Player.h \
+    State.h
 
 SOURCES += \
-    board.cpp \
-    color.cpp \
-    direction.cpp \
-    game.cpp \
-    player.cpp \
-    position.cpp \
-    square.cpp \
-    state.cpp
+    Board.cpp \
+    Color.cpp \
+    Game.cpp \
+    Marble.cpp \
+    Player.cpp \
+    State.cpp

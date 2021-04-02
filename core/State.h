@@ -14,7 +14,7 @@
  * will show up.
  */
 enum State{
-    CONFIG, TURNWHITE, TURNBLACK, OVER
+    CONFIG, MOVE, NEXTPLAYER ,OVER
 };
 
 /*!

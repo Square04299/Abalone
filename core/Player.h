@@ -1,10 +1,10 @@
 ﻿#ifndef PLAYER_H
 #define PLAYER_H
 
-#include "color.h"
+#include "Color.h"
 
 
-class player
+class Player
 {
 private:
     /*!
@@ -18,14 +18,14 @@ private:
      */
     int m_nbDeadMarble;
 public:
-    player();
+    Player();
     /*!
      * \brief Constructor of player class
      *
      * \param color the color of the support.
      * \param x is the initial nomber is dead marble needed to win.
      */
-    player(Color color, int x);
+    Player(Color color, int x);
     /*!
      * \brief Getter of the value of the nbDeadMarble attribute.
      * \return Interger is equal to 0 will end the game.
@@ -35,7 +35,16 @@ public:
      * \brief Getter of the color attribute.
      * \return color, black or white can't be NONE.
      */
-    Color getColor();
+    Color getColor() const;
+    /*!
+     * \brief Chech what value has m_nbDeadMarble.
+     * \return True if the value of m_nbDeadMarble is equal to 0.
+     */
+    bool isPlayerDead();
+    /*!
+     * \brief If a marble is outOfBound will remove 1 to the score of the player.
+     */
+    void removeMarble();
 };
 
 #endif // PLAYER_H

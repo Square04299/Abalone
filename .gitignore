@@ -48,3 +48,6 @@ Makefile.*
 
 # pas de fichier .qmake.stash
 .qmake.stash
+lib/libcore.dll
+
+lib/liblibcore.a
