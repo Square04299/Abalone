@@ -13,15 +13,11 @@ private:
     /*!
      * \brief Size of the table.
      */
-    static constexpr unsigned SIZE = 9;
+    static constexpr unsigned SIZE = 11;
     /*!
      * \brief 2D table where all the marble are.
      */
     Marble* m_board[SIZE][SIZE];
-    /*!
-     * \brief Total amount of marble that can be of a certain color.
-     */
-    static constexpr unsigned m_nbMarble = 14;
     /*!
      * \brief Convertion map MAJ letter to a number.
      */

@@ -5,7 +5,7 @@ std::ostream& operator<<(std::ostream &os, const Color &color){
         {
             case WHITE: os << "white"; break;
             case BLACK: os << "black"; break;
-            case NONE:   os << ""     ; break;
+            case NONE:   os << "none"     ; break;
             case OUT:   os << "Not on the Board"     ; break;
         }
         return os;

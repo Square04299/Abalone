@@ -28,8 +28,8 @@ Board::~Board(){
 
 bool Board::initMarblePLace(){
     bool validate = false;
-    for (int i = 0; i < 9; i++){
-        for (int j = 0; j < 9; j++){
+    for (int i = 0; i < 11; i++){
+        for (int j = 0; j < 11; j++){
             m_board[i][j] = new Marble();
             validate = true;
         }
@@ -38,55 +38,62 @@ bool Board::initMarblePLace(){
 }
 
 bool Board::initMapConvertion(){
-    m_convertionMap["A"] = 8;
-    m_convertionMap["B"] = 7;
-    m_convertionMap["C"] = 6;
-    m_convertionMap["D"] = 5;
-    m_convertionMap["E"] = 4;
-    m_convertionMap["F"] = 3;
-    m_convertionMap["G"] = 2;
-    m_convertionMap["H"] = 1;
-    m_convertionMap["I"] = 0;
+    m_convertionMap["A"] = 9;
+    m_convertionMap["B"] = 8;
+    m_convertionMap["C"] = 7;
+    m_convertionMap["D"] = 6;
+    m_convertionMap["E"] = 5;
+    m_convertionMap["F"] = 4;
+    m_convertionMap["G"] = 3;
+    m_convertionMap["H"] = 2;
+    m_convertionMap["I"] = 1;
     return true;
 }
 
 bool Board::initNullMarble(){
-    for (int i=0;i<4 ;i++ ) {
-        m_board[0][i]->setColor(Color::OUT);
-    }
-    for (int i=0;i<3 ;i++ ) {
+    for (int i=0;i<5 ;i++ ) {
         m_board[1][i]->setColor(Color::OUT);
     }
-    for (int i=0;i<2 ;i++ ) {
+    for (int i=0;i<4 ;i++ ) {
         m_board[2][i]->setColor(Color::OUT);
     }
-    m_board[3][0]->setColor(Color::OUT);
-    m_board[5][8]->setColor(Color::OUT);
-    for (int i=7;i<9 ;i++ ) {
-        m_board[6][i]->setColor(Color::OUT);
+    for (int i=0;i<3 ;i++ ) {
+        m_board[3][i]->setColor(Color::OUT);
     }
-    for (int i=6;i<9 ;i++ ) {
+    m_board[4][1]->setColor(Color::OUT);
+    m_board[6][9]->setColor(Color::OUT);
+    for (int i=8;i<10 ;i++ ) {
         m_board[7][i]->setColor(Color::OUT);
     }
-    for (int i=5;i<9 ;i++ ) {
+    for (int i=7;i<10 ;i++ ) {
         m_board[8][i]->setColor(Color::OUT);
     }
-    return ((m_board[1][2]->getColor() == Color::OUT) && (m_board[8][6]->getColor() == Color::OUT))? true:false;
+    for (int i=6;i<10 ;i++ ) {
+        m_board[9][i]->setColor(Color::OUT);
+    }
+    for (int i = 0; i < 11; i++) {
+        m_board[0][i]->setColor(Color::OUT);
+        m_board[10][i]->setColor(Color::OUT);
+
+        m_board[i][0]->setColor(Color::OUT);
+        m_board[i][10]->setColor(Color::OUT);
+    }
+    return ((m_board[1][1]->getColor() == Color::OUT) && (m_board[8][8]->getColor() == Color::OUT))? true:false;
 }
 
 bool Board::initPlaceBlackMarble(){
     bool v1 = false;
     bool v2 = false;
-    for (int i = 7; i < 9; i++){
-        for (int j = 0; j < 9; j++){
+    for (int i = 8; i < 10; i++){
+        for (int j = 1; j < 10; j++){
             if (m_board[i][j]->getColor() != Color::OUT){
                 m_board[i][j]->setColor(Color::BLACK);
                 v1= true;
             }
         }
     }
-    for (int j = 2; j < 5; j++){
-        m_board[6][j]->setColor(Color::BLACK);
+    for (int j = 3; j < 6; j++){
+        m_board[7][j]->setColor(Color::BLACK);
         v2 = true;
     }
     return v1 = (v2 == true);
@@ -95,16 +102,16 @@ bool Board::initPlaceBlackMarble(){
 bool Board::initPlaceWhiteMarble(){
     bool v1 = false;
     bool v2 = false;
-    for (int i = 0; i < 2; i++){
-        for (int j = 0; j < 9; j++){
+    for (int i = 1; i < 3; i++){
+        for (int j = 1; j < 10; j++){
             if (m_board[i][j]->getColor() != Color::OUT){
                 m_board[i][j]->setColor(Color::WHITE);
                 v1= true;
             }
         }
     }
-    for (int j = 4; j < 7; j++){
-        m_board[2][j]->setColor(Color::WHITE);
+    for (int j = 5; j < 8; j++){
+        m_board[3][j]->setColor(Color::WHITE);
         v2 = true;
     }
     return v1 = (v2 == true);
@@ -122,7 +129,7 @@ bool Board::isSetUp(){
 
 std::vector<Color> Board::getLineColor(int x){
     std::vector<Color> line;
-    for (int i =0 ; i < 9; i++) {
+    for (int i =0 ; i < 11; i++) {
         line.push_back(m_board[x][i]->getColor());
     }
     return line;
@@ -189,7 +196,7 @@ Color Board::slideMultipleMarble(std::pair<int, int> x, std::pair<int, int> y, i
 
     std::vector<Color> listColor;
 
-    while ((0 <= tempIX && tempIX <= 8) && (0 <= tempIY && tempIY <= 8)){
+    while ((0 <= tempIX && tempIX <= 11) && (0 <= tempIY && tempIY <= 11)){
         Color validationC = m_board[tempIX][tempIY]->getColor();
         switch (validationC) {
         case WHITE:
@@ -205,6 +212,7 @@ Color Board::slideMultipleMarble(std::pair<int, int> x, std::pair<int, int> y, i
             listColor.push_back(OUT);
             break;
         default:
+            listColor.push_back(NONE);
             break;
         }
         tempIX += diffX;
@@ -215,9 +223,12 @@ Color Board::slideMultipleMarble(std::pair<int, int> x, std::pair<int, int> y, i
     Color ancien = Color::NONE;
     if (isPlayableMarble(listColor)){
         m_board[tempIX][tempIY]->setColor(Color::NONE);
+        for (Color var : listColor) {
+            std::cout << var << std::endl;
+        }
         for (Color var : listColor){
             if (var != OUT) {
-                if ((0 <= tempFX && tempFX <= 8) && (0 <= tempFY && tempFY <= 8)){
+                if ((0 <= tempFX && tempFX <= 11) && (0 <= tempFY && tempFY <= 11)){
                     if (var != Color::NONE){
                         m_board[tempFX][tempFY]->setColor(var);
                         tempFX += diffX;
@@ -225,15 +236,25 @@ Color Board::slideMultipleMarble(std::pair<int, int> x, std::pair<int, int> y, i
                         ancien = var;
                     }
                 }else{
-                    std::cout << "Color to remove point :" << ancien << std::endl;
-                    return ancien;
+                    std::cout << "Color to remove point (var): " << var << std::endl;
+                    for (Color var : listColor) {
+                        std::cout << var << std::endl;
+                    }
+                    return var;
                 }
+            }else{
+                std::cout << "Color to remove point (ancien): " << ancien << std::endl;
+                for (Color var : listColor) {
+                    std::cout << var << std::endl;
+                }
+                return ancien;
             }
-            std::cout << "Color to remove point :" << ancien << std::endl;
-            return ancien;
         }
     }
-    std::cout << "Color to remove point :" << Color::NONE << std::endl;
+    std::cout << "Color to remove point (NONE): " << Color::NONE << std::endl;
+    for (Color var : listColor) {
+        std::cout << var << std::endl;
+    }
     return Color::NONE;
 }
 

@@ -69,23 +69,22 @@ std::string Observer::convCtoC(Color c){
    G + + O O O + +
   F + + + + + + + +
  E + + + + + + + + +
-  D + + + + + + + + 8
-   C + + @ @ @ + + 7
-    B @ @ @ @ @ @ 6
-     A @ @ @ @ @ 5
-        0 1 2 3 4
+  D + + + + + + + + 9
+   C + + @ @ @ + + 8
+    B @ @ @ @ @ @ 7
+     A @ @ @ @ @ 6
+        1 2 3 4 5
         G4 F3
         I5 I4
 
 */
 /* Must do
- * i 5 i 4 a 1 a 0 h 4 h 3 b 4 b 5 h 7 h 8 //BLACK WIN
- * i 8 h 7 a 0 b 1 h 7 g 6 b 1 c 2 //Breaks
+ * i 6 i 5 a 2 a 1 h 5 h 4 b 5 b 6 h 8 h 9 //BLACK WIN
+ * i 9 h 8 a 1 b 2 h 8 g 7 b 2 c 3 //Breaks
 */
 void Observer::displayBoard(){
     View::displayStr("Board incoming ...");
-    std::vector<Color> b0,b1,b2,b3,b4,b5,b6,b7,b8;
-    b0 = m_model.getBoardLine(0);
+    std::vector<Color> b1,b2,b3,b4,b5,b6,b7,b8,b9;
     b1 = m_model.getBoardLine(1);
     b2 = m_model.getBoardLine(2);
     b3 = m_model.getBoardLine(3);
@@ -94,73 +93,83 @@ void Observer::displayBoard(){
     b6 = m_model.getBoardLine(6);
     b7 = m_model.getBoardLine(7);
     b8 = m_model.getBoardLine(8);
-    std::cout << "     I";
+    b9 = m_model.getBoardLine(9);
+    /*std::cout << "     I";
     for (Color var : b0) {
        std::cout << convCtoC(var);
     }
-    std::cout << std::endl;
+    std::cout << std::endl;*/
 
 
-    std::cout << "    H";
+    std::cout << "     I";
     for (Color var : b1) {
        std::cout << convCtoC(var);
     }
     std::cout << std::endl;
 
 
-    std::cout << "   G";
+    std::cout << "    H";
     for (Color var : b2) {
        std::cout << convCtoC(var);
     }
     std::cout << std::endl;
 
 
-    std::cout << "  F";
+    std::cout << "   G";
     for (Color var : b3) {
        std::cout << convCtoC(var);
     }
     std::cout << std::endl;
 
 
-    std::cout << " E";
+    std::cout << "  F";
     for (Color var : b4) {
        std::cout << convCtoC(var);
     }
     std::cout << std::endl;
 
 
-    std::cout << "  D";
+    std::cout << " E";
     for (Color var : b5) {
        std::cout << convCtoC(var);
     }
     std::cout <<" 8" <<std::endl;
 
 
-    std::cout << "   C";
+    std::cout << "  D";
     for (Color var : b6) {
+       std::cout << convCtoC(var);
+    }
+    std::cout <<" 9" <<std::endl;
+
+
+    std::cout << "   C";
+    for (Color var : b7) {
+       std::cout << convCtoC(var);
+    }
+    std::cout <<" 8" <<std::endl;
+
+
+    std::cout << "    B";
+    for (Color var : b8) {
        std::cout << convCtoC(var);
     }
     std::cout <<" 7" <<std::endl;
 
 
-    std::cout << "    B";
-    for (Color var : b7) {
+    std::cout << "     A";
+    for (Color var : b9) {
        std::cout << convCtoC(var);
     }
     std::cout <<" 6" <<std::endl;
 
 
-    std::cout << "     A";
-    for (Color var : b8) {
-       std::cout << convCtoC(var);
-    }
-    std::cout <<" 5" <<std::endl;
-
-    std::cout << "        0";
-    for (int i = 1; i < 5; i++) {
+    std::cout << "        1";
+    for (int i = 2; i < 5; i++) {
         std::cout << " " << i;
     }
     std::cout << std::endl;
+
 }
 
 
