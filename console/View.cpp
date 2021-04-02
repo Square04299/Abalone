@@ -45,13 +45,13 @@ std::string View::askCoord(std:: string x){
    if (std::islower(letter)) {
        letter = toUpperCase(letter);//Budget lowerCase to upperCase
    }
-    std::cout << "Enter a number between (0 - 8)" << x << std::endl;
+    std::cout << "Enter a number between (1 - 9)" << x << std::endl;
     unsigned number;
     std::cin >> number;
     while (!(numberV(number))) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Invalide Number. Enter a new Letter between (0 - 8)"<< std::endl;
+        std::cout << "Invalide Number. Enter a new Letter between (1 - 9)"<< std::endl;
         std::cin >> number;
     }
     std::string result;
@@ -102,7 +102,7 @@ bool View::alphabet(char letter){
 }
 
 bool View::numberV(unsigned number){
-    if (number < 9) {
+    if (number < 10) {
         return true;
     }
     return false;

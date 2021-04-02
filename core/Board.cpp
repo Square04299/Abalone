@@ -157,7 +157,7 @@ Color Board::slideOneMarble(std::string a, std::string b, Color color){
                 m_board[fX][fY]->setColor(color);
             }
         }else{
-            throw std::invalid_argument("The two marble are too far from each other");
+            throw std::logic_error("The two marble are too far from each other");
         }
     }else{
         throw std::invalid_argument("The Marble you are trying to move isn't yours");
@@ -226,30 +226,38 @@ Color Board::slideMultipleMarble(std::pair<int, int> x, std::pair<int, int> y, i
         for (Color var : listColor) {
             std::cout << var << std::endl;
         }
-        for (Color var : listColor){
-            if (var != OUT) {
-                if ((0 <= tempFX && tempFX <= 11) && (0 <= tempFY && tempFY <= 11)){
-                    if (var != Color::NONE){
-                        m_board[tempFX][tempFY]->setColor(var);
-                        tempFX += diffX;
-                        tempFY += diffY;
-                        ancien = var;
-                    }
-                }else{
-                    std::cout << "Color to remove point (var): " << var << std::endl;
-                    for (Color var : listColor) {
-                        std::cout << var << std::endl;
-                    }
-                    return var;
-                }
-            }else{
-                std::cout << "Color to remove point (ancien): " << ancien << std::endl;
-                for (Color var : listColor) {
-                    std::cout << var << std::endl;
-                }
-                return ancien;
-            }
+        for (Color var : listColor) {
+           if ((0 <= tempFX && tempFX <= 11) && (0 <= tempFY && tempFY <= 11)){
+               switch (var) {
+               case WHITE:
+                   if (m_board[tempFX][tempFY]->getColor() != OUT) {
+                       m_board[tempFX][tempFY]->setColor(var);
+                       tempFX += diffX;
+                       tempFY += diffY;
+                       ancien = WHITE;
+                   }
+                   break;
+               case BLACK:
+                   if (m_board[tempFX][tempFY]->getColor() != OUT) {
+                       m_board[tempFX][tempFY]->setColor(var);
+                       tempFX += diffX;
+                       tempFY += diffY;
+                       ancien = BLACK;
+                   }
+                   break;
+               case NONE:
+                   return NONE;
+                   break;
+               case OUT:
+                   //Never should enter because of if OUT condition
+                   break;
+               default:
+                   return NONE;
+                   break;
+               }
+           }
         }
+        return ancien;
     }
     std::cout << "Color to remove point (NONE): " << Color::NONE << std::endl;
     for (Color var : listColor) {

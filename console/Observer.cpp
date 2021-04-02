@@ -94,11 +94,6 @@ void Observer::displayBoard(){
     b7 = m_model.getBoardLine(7);
     b8 = m_model.getBoardLine(8);
     b9 = m_model.getBoardLine(9);
-    /*std::cout << "     I";
-    for (Color var : b0) {
-       std::cout << convCtoC(var);
-    }
-    std::cout << std::endl;*/
 
 
     std::cout << "     I";
@@ -133,7 +128,7 @@ void Observer::displayBoard(){
     for (Color var : b5) {
        std::cout << convCtoC(var);
     }
-    std::cout <<" 8" <<std::endl;
+    std::cout << std::endl;
 
 
     std::cout << "  D";
@@ -165,7 +160,7 @@ void Observer::displayBoard(){
 
 
     std::cout << "        1";
-    for (int i = 2; i < 5; i++) {
+    for (int i = 2; i < 6; i++) {
         std::cout << " " << i;
     }
     std::cout << std::endl;
