@@ -17,7 +17,7 @@
 
 ### Analyse
 
-![Analyse Abalone](screenshot.png)
+![Analyse Abalone](Capture.png)
 
 #### Remise
 
