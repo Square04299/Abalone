@@ -18,7 +18,6 @@ private:
      */
     int m_nbDeadMarble;
 public:
-    Player();
     /*!
      * \brief Constructor of player class
      *
