@@ -17,13 +17,13 @@ public:
      * @brief Constructor of Observer
      * \param model Logical part of the Game
      */
-    Observer(Observable& model);
+    explicit Observer(Observable& model);
 
     /**
      * @brief updateObserver catch the notification of observable, performs an action based on the received parameter
      * @param state A state of the game, depending on the state performs an action
      */
-    void updateObserver(State &state);
+    void updateObserver(State const &state);
 
 private:
     void configGame();

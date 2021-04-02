@@ -5,7 +5,7 @@ Observer::Observer(Observable& model) :
     m_model(model)
 {}
 
-void Observer::updateObserver(State &state){
+void Observer::updateObserver(const State &state){
     switch (state) {
     case CONFIG:
         configGame();
@@ -22,6 +22,7 @@ void Observer::updateObserver(State &state){
         break;
     case OVER:
         end();
+        m_model.clearPlayer();
         break;
     }
 }
