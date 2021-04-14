@@ -69,15 +69,15 @@ std::string Observer::convCtoC(Color c){
 }
 
 /*
-     I O O O O O
-    H O O O O O O
+     I O O + O +
+    H O O + O + O
    G + + O O O + +
-  F + + + + + + + +
- E + + + + + + + + +
-  D + + + + + + + + 9
+  F + + O + O + + +
+ E + + O @ O + + + +
+  D + + + @ + @ + + 9
    C + + @ @ @ + + 8
-    B @ @ @ @ @ @ 7
-     A @ @ @ @ @ 6
+    B @ @ @ + @ + 7
+     A @ @ @ + @ 6
         1 2 3 4 5
         G4 F3
         I5 I4
@@ -86,6 +86,7 @@ std::string Observer::convCtoC(Color c){
 /* Must do
  * i 6 i 5 a 2 a 1 h 5 h 4 b 5 b 6 h 8 h 9 //BLACK WIN
  * i 9 h 8 a 1 b 2 h 8 g 7 b 2 c 3 //Breaks
+ * i 7 h 6 a 4 b 4 h 6 g 5 b 4 c 4 i 9 h 8 b 6 c 6 h 8 g 7 c 6 d 6 e 3 e 5 //Logic error
 */
 void Observer::displayBoard(){
     View::displayStr("Board incoming ...");

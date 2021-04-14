@@ -19,12 +19,12 @@ Board::Board():
 }
 
 void Board::clear(){
-    std::cout << "Deleting Board /!\\ " << std::endl;
+    std::cout << "Deleting Board /!\\ ";
     for (int i = 0; i < 11; i++){
         for (int j = 0; j < 11; j++) {
             delete m_board[i][j];
         }
-        std::cout << "." << std::endl;
+        std::cout << ".";
     }
 }
 
@@ -264,18 +264,32 @@ bool Board::isPlayableMarble(std::vector<Color> vectorColor){
     int countBlack = 0;
     int countWhite = 0;
     bool foundNONE = false;
+    int change = 0;
+    Color ancien = NONE;
     int res;
 
     for (Color var : vectorColor){
         switch (var) {
         case WHITE:
-            if (!foundNONE) {
-                countWhite++;
+            if (change < 2) {
+                if (ancien != WHITE) {
+                    change++;
+                    ancien = var;
+                }
+                if (!foundNONE) {
+                    countWhite++;
+                }
             }
             break;
         case BLACK:
-            if (!foundNONE) {
-                countBlack++;
+            if (change < 2) {
+                if (ancien != BLACK) {
+                    change++;
+                    ancien = var;
+                }
+                if (!foundNONE) {
+                    countBlack++;
+                }
             }
             break;
         case NONE:
