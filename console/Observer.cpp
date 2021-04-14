@@ -39,7 +39,11 @@ void Observer::healthPlayer(std::vector<Player> players){
 }
 
 void Observer::displayPlaying(Player p){
-    View::displayStrC(" : isplayer",p.getColor());
+    if (p.getColor() == WHITE) {
+        View::displayStrC(" turn, white has the O character",p.getColor());
+    }else {
+        View::displayStrC(" turn, black has the @ character",p.getColor());
+    }
 }
 
 void Observer::displayNextPlayer(){
