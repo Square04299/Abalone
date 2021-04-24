@@ -13,8 +13,18 @@ void Observer::updateObserver(const State &state){
         break;
     case MOVE:
         healthPlayer(m_model.getPlayers());
-        displayPlaying(m_model.getCurrent());
-        move();
+        try {
+            displayPlaying(m_model.getCurrent());
+            move();
+        }catch (const std::logic_error& ex) {
+            View::displayStr("\n");
+            View::displayStr(ex.what());
+            displayBoard();
+        }catch (const std::exception& ex){
+            View::displayStr(ex.what());
+        }catch (...){
+            std::cerr << "Unknown failure occurred." << std::endl;
+        }
         break;
     case NEXTPLAYER:
         displayBoard();
