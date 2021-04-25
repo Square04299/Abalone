@@ -7,7 +7,8 @@ QMAKE_CFLAGS += -std=c17 \
 SUBDIRS += \
     core \
     tests \    
-    console \    
+    console \
+    ui \
 
 OTHER_FILES += \
     defaults.pri
