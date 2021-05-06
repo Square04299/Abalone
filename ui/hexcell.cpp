@@ -35,7 +35,7 @@ void HexCell::paint(QPainter * painter,
                       [[maybe_unused]] const QStyleOptionGraphicsItem * option,
                       [[maybe_unused]] QWidget * widget)
 {
-    QPen pen(Qt::black, 1);
+    QPen pen(QColor(128, 96, 68), 2);
     painter->setPen(pen);
     QBrush brush;
     switch (_c) {

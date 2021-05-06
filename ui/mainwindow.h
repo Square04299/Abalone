@@ -4,6 +4,8 @@
 #include "hexcell.h"
 #include "Game.h"
 #include <QMainWindow>
+#include <QGraphicsScene>
+#include <QGraphicsView>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,7 +24,6 @@ private slots:
   void on_unselect_clicked();
   void on_rules_clicked();
   void on_hexcell_clicked(std::string value);
-  void displayHex();
 
 private:
     Ui::MainWindow *ui;
@@ -30,5 +31,6 @@ private:
     std::string pos1;
     std::string pos2;
     Game game;
+    void displayHex();
 };
 #endif // MAINWINDOW_H

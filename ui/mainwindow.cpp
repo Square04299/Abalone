@@ -4,15 +4,11 @@
 #include <cmath>
 
 #include <QDebug>
-#include <QGraphicsScene>
-#include <QGraphicsView>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
       HexCells {},
-      pos1{},
-      pos2{},
       game{Game()}
 {
 
@@ -86,15 +82,13 @@ void MainWindow::on_confirm_clicked(){
         QString str2 = QString::number(game.getPlayers().at(1).getDeadMarble());
         ui->player2Life->setText("Life left : " +str2);
         game.nextPlayer();
-        update();
     }
     qDebug() << "call confirm clicked";
 }
 void MainWindow::on_unselect_clicked(){
-    ui->label->setText("You've unselected your Marble");
     ui->itemPos1->setText("");
     ui->itemPos2->setText("");
-    ui->label->setText("You've unselected your Marble\n CLEARED");
+    ui->label->setText("Game :You've unselected your Marble\n CLEARED");
     qDebug() << "call unselected clicked";
 }
 void MainWindow::on_rules_clicked(){
@@ -163,4 +157,3 @@ void MainWindow::displayHex(){
         HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * 0, (sqrt(3) * 35/2) * i , "E" + std::to_string(i/2),b.getColor(5,(i/2)), nullptr));
     }
 }
-
