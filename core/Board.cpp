@@ -341,3 +341,21 @@ bool Board::isPlayableMarble(std::vector<Color> vectorColor){
     }
     return false;
 }
+
+bool Board::getColorXY(int x, int y){
+    return (m_board[x][y]->getColor() != Color::OUT)? true : false;
+}
+
+Color Board::getColor(int x, int y){
+    return m_board[x][y]->getColor();
+}
+
+
+
+
+
+
+
+
+
+

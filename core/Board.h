@@ -98,6 +98,8 @@ public:
      * \return Vectore return 1 line of the Board
      */
     std::vector<Color> getLineColor(int);
+    bool getColorXY(int, int);
+    Color getColor(int,int);
 
 };
 
