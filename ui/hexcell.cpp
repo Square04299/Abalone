@@ -30,8 +30,8 @@ HexCell::HexCell(double x, double y,
 
 void HexCell::paint(QPainter * painter,
                       [[maybe_unused]] const QStyleOptionGraphicsItem * option,
-                      [[maybe_unused]] QWidget * widget)
-{
+                      [[maybe_unused]] QWidget * widget){
+
     QPen pen(QColor(128, 96, 68), 2);
     painter->setPen(pen);
     QBrush brush;
@@ -63,7 +63,6 @@ void HexCell::mousePressEvent(QGraphicsSceneMouseEvent * event)
     emit sendValue(_value);
 
 }
-
 
 
 

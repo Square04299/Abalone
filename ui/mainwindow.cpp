@@ -79,7 +79,7 @@ void MainWindow::on_confirm_clicked(){
         }catch (const std::exception& ex){
             QMessageBox::warning(this,"Exception",ex.what());
         }catch (...){
-            QMessageBox::critical(this,"What the Fuck did","What did you press to break me so hard ??");
+            QMessageBox::critical(this,"What the HELL did you do","What did you press to break me so hard ??");
         }
 
     }
@@ -118,9 +118,11 @@ void MainWindow::nextPlayer(){
     }
 }
 void MainWindow::on_unselect_clicked(){
+    pos1 = "";
+    pos2 = "";
     ui->itemPos1->setText("");
     ui->itemPos2->setText("");
-    ui->label->setText("Game :You've unselected your Marble\n CLEARED");
+    ui->label->setText("Game :You've cleared your unselected\n CLEARED");
     qDebug() << "call unselected clicked";
 }
 void MainWindow::on_rules_clicked(){
@@ -139,7 +141,7 @@ void MainWindow::on_hexcell_clicked(std::string value)
         pos1=value;
     }else if (pos2.empty()) {
         pos2=value;
-    }else{
+    }else {
         pos1 = value;
         pos2 = "";
     }

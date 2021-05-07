@@ -41,7 +41,7 @@ class HexCell : public QObject, public QGraphicsPolygonItem
 
   public:
     explicit HexCell(double x, double y,
-                       std::string value,Board b, int vX, int vY,
+                       std::string value, Board b, int vX, int vY,
                        QGraphicsPolygonItem * parent = nullptr);
     inline double x() const;
     inline double y() const;
