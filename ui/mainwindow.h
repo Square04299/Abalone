@@ -3,9 +3,11 @@
 
 #include "hexcell.h"
 #include "Game.h"
+
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QMessageBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -32,5 +34,7 @@ private:
     std::string pos2;
     Game game;
     void displayHex();
+    void nextPlayer();
+    void endGame();
 };
 #endif // MAINWINDOW_H
