@@ -2,21 +2,18 @@
 
 #include <cmath>
 
-#include <QPainter>
-#include <QPointF>
-#include <QStyleOptionGraphicsItem>
-#include <QWidget>
-#include <QGraphicsSceneMouseEvent>
-#include <QDebug>
 
 HexCell::HexCell(double x, double y,
-                     std::string value,Color c,
+                     std::string value,Board b, int vX, int vY,
                      QGraphicsPolygonItem * parent)
     : QGraphicsPolygonItem (parent),
       _x { x }, _y { y },
       _value { value },
-      _c{c}
+      _vX{vX}, _vY{vY},
+      _b{b},
+      _c{}
 {
+    _c = _b.getColor(_vX,_vY);
     static const double pi_over_6 = atan(1) * 4 / 6;
     static const double r = 35;
 
@@ -54,6 +51,10 @@ void HexCell::paint(QPainter * painter,
     painter->drawPolygon(polygon());
 }
 
+void HexCell::updateColor(){
+    _c = _b.getColor(_vX,_vY);
+    update();
+}
 
 void HexCell::mousePressEvent(QGraphicsSceneMouseEvent * event)
 {
@@ -62,4 +63,19 @@ void HexCell::mousePressEvent(QGraphicsSceneMouseEvent * event)
     emit sendValue(_value);
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

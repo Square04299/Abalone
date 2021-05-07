@@ -3,7 +3,15 @@
 
 #include <QGraphicsPolygonItem>
 #include <QObject>
-#include <Color.h>
+#include <QPainter>
+#include <QPointF>
+#include <QStyleOptionGraphicsItem>
+#include <QWidget>
+#include <QGraphicsSceneMouseEvent>
+#include <QDebug>
+
+#include "Color.h"
+#include "Board.h"
 
 /*
  * forward declaration.
@@ -33,10 +41,12 @@ class HexCell : public QObject, public QGraphicsPolygonItem
 
   public:
     explicit HexCell(double x, double y,
-                       std::string value,Color c,
+                       std::string value,Board b, int vX, int vY,
                        QGraphicsPolygonItem * parent = nullptr);
     inline double x() const;
     inline double y() const;
+    int _vX, _vY;
+    Board _b;
     Color _c;
 
     /*
@@ -47,6 +57,7 @@ class HexCell : public QObject, public QGraphicsPolygonItem
     void paint(QPainter * painter,
                const QStyleOptionGraphicsItem * option,
                QWidget * widget);
+    void updateColor();
 
   protected:
     /*
