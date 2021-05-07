@@ -28,7 +28,6 @@ private:
      */
     unsigned m_currentPlayer;
 
-
 public:
 
      /*!
@@ -95,6 +94,7 @@ public:
      * \return the current player playing
      */
     Player getCurrent();
+    void setState(State state);
 
     Game(const Game& other) = delete;
     Game(Game&& other) = delete;

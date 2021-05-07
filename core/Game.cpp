@@ -114,3 +114,7 @@ std::vector<Player> Game::getPlayers(){
 Player Game::getCurrent(){
     return m_players[m_currentPlayer];
 }
+
+void Game::setState(State state){
+    m_state = state;
+}
