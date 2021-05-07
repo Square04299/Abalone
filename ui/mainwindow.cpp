@@ -56,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent)
     QString str2 = QString::number(game.getPlayers().at(1).getDeadMarble());
     ui->player2Life->setText("Life left : " +str2);
 
-    ui->label->setText("Game : The player one can start playing (White Hexagon)");
+    ui->label->setText("Game : The WHITE player will start moving this marble");
 
     ui->hex->addWidget(view);
 }
@@ -67,7 +67,6 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::on_confirm_clicked(){
-    ui->label->setText("Cicked");
     if (pos1.empty() || pos2.empty()) {
         ui->label->setText("Game : You hasn't selected 2 marble");
     }else {
@@ -81,7 +80,27 @@ void MainWindow::on_confirm_clicked(){
 
         QString str2 = QString::number(game.getPlayers().at(1).getDeadMarble());
         ui->player2Life->setText("Life left : " +str2);
-        game.nextPlayer();
+
+        for (unsigned i = 0; i < HexCells.size() ;i++ ) {
+            HexCells.at(i)->updateColor();
+        }
+        if (game.isGameOver() != nullptr) {
+            game.setState(OVER);
+        }else{
+            game.setState(NEXTPLAYER);
+        }
+    }
+    game.nextPlayer();
+    switch (game.getCurrent().getColor()) {
+    case WHITE:
+        ui->label->setText("Game : It's WHITE turn");
+        break;
+    case BLACK:
+        ui->label->setText("Game : It's BLACK turn");
+        break;
+    default:
+        ui->label->setText("There must be an error");
+        break;
     }
     qDebug() << "call confirm clicked";
 }
@@ -110,7 +129,7 @@ void MainWindow::on_hexcell_clicked(std::string value)
     ui->itemPos1->setText(pos1.c_str());
     ui->itemPos2->setText(pos2.c_str());
     //Print Bottom
-    ui->label->setText(value.c_str());
+    //ui->label->setText(value.c_str());
     std::string s = "receveive value from ghexacell ";
     s.append(value);
     qDebug() << s.c_str();
@@ -123,37 +142,37 @@ void MainWindow::displayHex(){
     for (int i = 5; i < 15 ;i++ ) {
         i++;
         //A
-        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * 4, (sqrt(3) * 35/2) * i , "A" + std::to_string(((i-2)/2)-1),b.getColor(9,((i-2)/2)-1), nullptr));
+        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * 4, (sqrt(3) * 35/2) * i , "A" + std::to_string(((i-2)/2)-1), b, 9, (((i-2)/2)-1), nullptr));
         //I
-        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * -4, (sqrt(3) * 35/2) * i , "I" + std::to_string(((i/2)+3)-1),b.getColor(1,((i/2)+3)-1), nullptr));
+        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * -4, (sqrt(3) * 35/2) * i , "I" + std::to_string(((i/2)+3)-1), b, 1, (((i/2)+3)-1), nullptr));
     }
     //H and B
     for (int i = 4; i < 15 ;i++ ) {
         i++;
         //B
-        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * 3, (sqrt(3) * 35/2) * i , "B" + std::to_string(((i-4/2)-1)/2),b.getColor(8,((i-4/2)-1)/2), nullptr));
+        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * 3, (sqrt(3) * 35/2) * i , "B" + std::to_string(((i-4/2)-1)/2), b, 8, (((i-4/2)-1)/2), nullptr));
         //H
-        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * -3, (sqrt(3) * 35/2) * i , "H" + std::to_string(i/2+2),b.getColor(2,(i/2+2)), nullptr));
+        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * -3, (sqrt(3) * 35/2) * i , "H" + std::to_string(i/2+2), b, 2, ((i/2+2)), nullptr));
     }
     //C and G
     for (int i = 3; i < 16 ;i++ ) {
         i++;
         //C
-        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * 2, (sqrt(3) * 35/2) * i , "C" + std::to_string((i-2)/2),b.getColor(7,(i-2)/2), nullptr));
+        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * 2, (sqrt(3) * 35/2) * i , "C" + std::to_string((i-2)/2), b, 7, ((i-2)/2), nullptr));
         //G
-        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * -2, (sqrt(3) * 35/2) * i , "G" + std::to_string(i/2+1),b.getColor(3,(i/2+1)), nullptr));
+        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * -2, (sqrt(3) * 35/2) * i , "G" + std::to_string(i/2+1), b, 3, ((i/2+1)), nullptr));
     }
     //D and F
     for (int i = 2; i < 18 ;i++ ) {
         i++;
         //D
-        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * 1, (sqrt(3) * 35/2) * i, "D" + std::to_string(i/2),b.getColor(6,(i/2)), nullptr));
+        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * 1, (sqrt(3) * 35/2) * i, "D" + std::to_string(i/2), b, 6, ((i/2)), nullptr));
         //F
-        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * -1, (sqrt(3) * 35/2) * i, "F" + std::to_string(i/2+1),b.getColor(4,(i/2+1)), nullptr));
+        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * -1, (sqrt(3) * 35/2) * i, "F" + std::to_string(i/2+1), b, 4, ((i/2+1)), nullptr));
     }
     //E
     for (int i = 1; i < 19 ;i++ ) {
         i++;
-        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * 0, (sqrt(3) * 35/2) * i , "E" + std::to_string(i/2),b.getColor(5,(i/2)), nullptr));
+        HexCells.push_back(new HexCell(((2 * 35) * 3 / 4) * 0, (sqrt(3) * 35/2) * i , "E" + std::to_string(i/2), b, 5, ((i/2)), nullptr));
     }
 }
