@@ -41,6 +41,7 @@ public:
     QSpacerItem *verticalSpacer;
     QVBoxLayout *nextMove;
     QLabel *label;
+    QSpacerItem *verticalSpacer_2;
     QWidget *verticalLayoutWidget_2;
     QVBoxLayout *action;
     QPushButton *confirm;
@@ -61,7 +62,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1158, 773);
+        MainWindow->resize(1158, 776);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         horizontalLayoutWidget = new QWidget(centralwidget);
@@ -115,7 +116,7 @@ public:
 
         info->addLayout(playerInfo);
 
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Minimum);
+        verticalSpacer = new QSpacerItem(20, 35, QSizePolicy::Minimum, QSizePolicy::Minimum);
 
         info->addItem(verticalSpacer);
 
@@ -126,6 +127,10 @@ public:
         label->setAlignment(Qt::AlignCenter);
 
         nextMove->addWidget(label);
+
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Maximum);
+
+        nextMove->addItem(verticalSpacer_2);
 
 
         info->addLayout(nextMove);
