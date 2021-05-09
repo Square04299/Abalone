@@ -248,7 +248,6 @@ Color Board::slideMultipleMarble(std::pair<int, int> x, std::pair<int, int> y, i
         }
         return ancien;
     }
-    std::cout << "Wasn't able to move this marble logic_error" << std::endl;
     return Color::NONE;
 }
 
@@ -263,7 +262,7 @@ std::pair<int, int> Board::convertStringToHex(std::string a){
 bool Board::isPlayableMarble(std::vector<Color> vectorColor){
     int countBlack = 0;
     int countWhite = 0;
-    bool foundNONE = false;
+    bool foundOutOfBound = false;
     int change = 0;
     Color ancien = NONE;
     int res;
@@ -271,33 +270,34 @@ bool Board::isPlayableMarble(std::vector<Color> vectorColor){
     for (Color var : vectorColor){
         switch (var) {
         case WHITE:
-            if (change < 2) {
+            if (change < 3) {
                 if (ancien != WHITE) {
                     change++;
                     ancien = var;
                 }
-                if (!foundNONE) {
+                if (!foundOutOfBound) {
                     countWhite++;
                 }
             }
             break;
         case BLACK:
-            if (change < 2) {
+            if (change < 3) {
                 if (ancien != BLACK) {
                     change++;
                     ancien = var;
                 }
-                if (!foundNONE) {
+                if (!foundOutOfBound) {
                     countBlack++;
                 }
             }
             break;
         case NONE:
-            if (!foundNONE) {
-                foundNONE = true;
+            if (!foundOutOfBound) {
+                foundOutOfBound = true;
             }
             break;
         case OUT:
+            foundOutOfBound = true;
             break;
         default:
             break;
@@ -313,7 +313,7 @@ bool Board::isPlayableMarble(std::vector<Color> vectorColor){
             case 2:
                 return true;
             case 3:
-                if (foundNONE) {
+                if (foundOutOfBound) {
                     return true;
                 }
                 return false;
@@ -331,7 +331,7 @@ bool Board::isPlayableMarble(std::vector<Color> vectorColor){
             case 2:
                 return true;
             case 3:
-                if (foundNONE) {
+                if (foundOutOfBound) {
                     return true;
                 }
                 return false;
