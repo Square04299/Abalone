@@ -248,6 +248,7 @@ Color Board::slideMultipleMarble(std::pair<int, int> x, std::pair<int, int> y, i
         }
         return ancien;
     }
+    throw std::logic_error("You don't have the advantage to move your marble");
     return Color::NONE;
 }
 
@@ -302,6 +303,9 @@ bool Board::isPlayableMarble(std::vector<Color> vectorColor){
         default:
             break;
         }
+    }
+    if (change == 3) {
+        return false;
     }
     if (vectorColor[0] == Color::BLACK){
         res = countBlack - countWhite;
