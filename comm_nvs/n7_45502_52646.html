@@ -1,0 +1,429 @@
+<!--
+https://pandoc.org/
+pdf produit avec la commande :
++ pandoc -V papersize=a4 -V geometry=landscape --pdf-engine=pdflatex -o n7_45502_52646.pdf n7_45502_52646.md
+
+alternative :
++ pandoc -V papersize=a4 --pdf-engine=xelatex -o n7_45502_52646.pdf n7_45502_52646.md
+
+alternative :
+https://www.npmjs.com/package/md-to-pdf
++ md-to-pdf n7_45502_52646.md
+
+html produit avec la commande :
++ pandoc -V papersize=a4 --pdf-engine=xelatex -o n7_45502_52646.html n7_45502_52646.md
+
+alternative :
+https://www.npmjs.com/package/markdown-to-html
++ markdown n7_45502_52646.md > n7_45502_52646.html
+-->
+<!-- # commentaires nvs : abalone : nn7_45502_52646 -->
+<h1 id="abalone-n7-45502-52646">Abalone : n7 (45502 &amp; 52646)</h1>
+<h2 id="dépôt">dépôt</h2>
+<p><a href="https://git.esi-bru.be/45502/dev4-abalone">https://git.esi-bru.be/45502/dev4-abalone</a></p>
+<p><code>git@git.esi-bru.be:45502/dev4-abalone.git</code></p>
+<h2 id="modélisation">modélisation</h2>
+<h3 id="remise">remise</h3>
+<h4 id="tag-commit">tag / commit</h4>
+<p>ok : il y a un tag <code>modelization-release</code></p>
+<h4 id="retard">retard</h4>
+<p>(void)</p>
+<h4 id="autre">autre</h4>
+<p>(void)</p>
+<h3 id="analyse">analyse</h3>
+<p>(void)</p>
+<h2 id="console">console</h2>
+<p>à partir de la remise console, l’étudiant 52646 ne fait plus partie du binôme.</p>
+<h3 id="remise-1">remise</h3>
+<h4 id="tag-commit-1">tag / commit</h4>
+<p>ok : il y a un tag <code>console-release</code></p>
+<h4 id="retard-1">retard</h4>
+<p>(void)</p>
+<h4 id="autre-1">autre</h4>
+<p>(void)</p>
+<h3 id="documentation">documentation</h3>
+<ul>
+<li>je ne trouve aucun fichier de configuration pour doxygen</li>
+<li>la classe <code>View</code> n’est pas documentée</li>
+<li>le reste des classes et énumérations est documenté, mais les fichiers ne le sont pas, cela pourrait poser problème pour la génération de la documentation des énumérations <code>Color</code> et <code>State</code></li>
+</ul>
+<h3 id="rapport">rapport</h3>
+<h4 id="format-pdf">format pdf</h4>
+<p>ok</p>
+<h4 id="bogue-non-signalé">bogue non signalé</h4>
+<p>ko :</p>
+<ul>
+<li>j’ai pu déplacer 4 pions <code>@</code> qui ont poussé 1 <code>O</code> ou encore 4 <code>O</code> qui ont poussé 2 <code>@</code></li>
+</ul>
+<h4 id="écart-ajout-non-signalé">écart / ajout non signalé</h4>
+<p>(void)</p>
+<h4 id="autre-2">autre</h4>
+<p>(void)</p>
+<h3 id="rapport-code">rapport / code</h3>
+<h4 id="avertissement-restant">avertissement restant</h4>
+<p>rem. : les subdirs ne fonctionnent pas sur ma machine linux. je n’ai pas envie de creuser. j’ai donc créé un projet avec tous les sources nécessaires. bon j’ai trouvé le souci. c’était un problème d’affichage dans qt creator… c’est pas grave, ça le fait aussi.</p>
+<h5 id="gcc">gcc</h5>
+<h6 id="signalé">signalé</h6>
+<p>(void)</p>
+<h6 id="non-signalé">non signalé</h6>
+<p>(void)</p>
+<h5 id="gcc-clang-analyzer">gcc + clang-analyzer</h5>
+<pre><code>View.cpp:112:13: warning: Although the value stored to &#39;x&#39; is used in the enclosing expression, the value is never actually read from &#39;x&#39; [deadcode.DeadStores]
+    return (x = x - 32);
+            ^   ~~~~~~
+1 warning generated.</code></pre>
+<p>faux positif</p>
+<pre><code>Board.cpp:121:13: warning: Although the value stored to &#39;i&#39; is used in the enclosing expression, the value is never actually read from &#39;i&#39; [deadcode.DeadStores]
+    return (i = m_configConfirmation.size()) ? true:false;
+            ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~</code></pre>
+<pre><code>Board.cpp:174:13: warning: Branch condition evaluates to a garbage value [core.uninitialized.Branch]
+        if (tempX &amp;&amp; tempY){
+            ^~~~~</code></pre>
+<pre><code>Board.cpp:174:22: warning: Branch condition evaluates to a garbage value [core.uninitialized.Branch]
+        if (tempX &amp;&amp; tempY){
+                     ^~~~~
+3 warnings generated.</code></pre>
+<pre><code>Game.cpp:10:5: warning: Potential memory leak [cplusplus.NewDeleteLeaks]
+    Player p1 = *new Player(WHITE,3);
+    ^~~~~~~~~
+Game.cpp:11:5: warning: Potential memory leak [cplusplus.NewDeleteLeaks]
+    Player p2 = *new Player(BLACK,3);
+    ^~~~~~~~~
+2 warnings generated.</code></pre>
+<h5 id="clang">clang++</h5>
+<p>(void)</p>
+<h5 id="clang-clang-analyzer">clang++ + clang-analyzer</h5>
+<p>idem g++</p>
+<h5 id="cppcheck">cppcheck</h5>
+<h6 id="signalé-1">signalé</h6>
+<p>(void)</p>
+<h6 id="non-signalé-1">non signalé</h6>
+<pre><code>Board.h:76:10: performance:inconclusive: Technically the member function &#39;Board::diffMarble&#39; can be static (but you may consider moving to unnamed namespace). [functionStatic]
+    bool diffMarble(const int, const int);
+         ^
+Board.cpp:162:13: note: Technically the member function &#39;Board::diffMarble&#39; can be static (but you may consider moving to unnamed namespace).
+bool Board::diffMarble(int const diffX, int const diffY){
+            ^
+Board.h:76:10: note: Technically the member function &#39;Board::diffMarble&#39; can be static (but you may consider moving to unnamed namespace).
+    bool diffMarble(const int, const int);
+         ^</code></pre>
+<pre><code>Board.h:95:10: performance:inconclusive: Technically the member function &#39;Board::isPlayableMarble&#39; can be static (but you may consider moving to unnamed namespace). [functionStatic]
+    bool isPlayableMarble(std::vector&lt;Color&gt;);
+         ^
+Board.cpp:263:13: note: Technically the member function &#39;Board::isPlayableMarble&#39; can be static (but you may consider moving to unnamed namespace).
+bool Board::isPlayableMarble(std::vector&lt;Color&gt; vectorColor){
+            ^
+Board.h:95:10: note: Technically the member function &#39;Board::isPlayableMarble&#39; can be static (but you may consider moving to unnamed namespace).
+    bool isPlayableMarble(std::vector&lt;Color&gt;);
+         ^</code></pre>
+<pre><code>Board.cpp:163:9: style: The scope of the variable &#39;validNB&#39; can be reduced. [variableScope]
+    int validNB[3] = {-1, 0, 1};
+        ^</code></pre>
+<pre><code>Board.cpp:164:10: style: The scope of the variable &#39;tempX&#39; can be reduced. [variableScope]
+    bool tempX, tempY;
+         ^</code></pre>
+<pre><code>Board.cpp:164:17: style: The scope of the variable &#39;tempY&#39; can be reduced. [variableScope]
+    bool tempX, tempY;
+                ^</code></pre>
+<pre><code>Board.cpp:118:13: style: Consider using std::count_if algorithm instead of a raw loop. [useStlAlgorithm]
+            i++;
+            ^</code></pre>
+<pre><code>Game.h:87:11: style:inconclusive: Technically the member function &#39;Game::getState&#39; can be const. [functionConst]
+    State getState();
+          ^
+Game.cpp:106:13: note: Technically the member function &#39;Game::getState&#39; can be const.
+State Game::getState(){
+            ^
+Game.h:87:11: note: Technically the member function &#39;Game::getState&#39; can be const.
+    State getState();
+          ^</code></pre>
+<pre><code>Game.h:92:25: style:inconclusive: Technically the member function &#39;Game::getPlayers&#39; can be const. [functionConst]
+    std::vector&lt;Player&gt; getPlayers();
+                        ^
+Game.cpp:110:27: note: Technically the member function &#39;Game::getPlayers&#39; can be const.
+std::vector&lt;Player&gt; Game::getPlayers(){
+                          ^
+Game.h:92:25: note: Technically the member function &#39;Game::getPlayers&#39; can be const.
+    std::vector&lt;Player&gt; getPlayers();
+                        ^</code></pre>
+<pre><code>Game.h:97:12: style:inconclusive: Technically the member function &#39;Game::getCurrent&#39; can be const. [functionConst]
+    Player getCurrent();
+           ^
+Game.cpp:114:14: note: Technically the member function &#39;Game::getCurrent&#39; can be const.
+Player Game::getCurrent(){
+             ^
+Game.h:97:12: note: Technically the member function &#39;Game::getCurrent&#39; can be const.
+    Player getCurrent();
+           ^</code></pre>
+<pre><code>Marble.cpp:13:29: style:inconclusive: Function &#39;setColor&#39; argument 1 names different: declaration &#39;color&#39; definition &#39;x&#39;. [funcArgNamesDifferent]
+void Marble::setColor(Color x){
+                            ^
+Marble.h:26:25: note: Function &#39;setColor&#39; argument 1 names different: declaration &#39;color&#39; definition &#39;x&#39;.
+    void setColor(Color color);
+                        ^
+Marble.cpp:13:29: note: Function &#39;setColor&#39; argument 1 names different: declaration &#39;color&#39; definition &#39;x&#39;.
+void Marble::setColor(Color x){
+                            ^</code></pre>
+<pre><code>Observer.h:32:17: performance:inconclusive: Technically the member function &#39;Observer::convCtoC&#39; can be static (but you may consider moving to unnamed namespace). [functionStatic]
+    std::string convCtoC(Color);
+                ^
+Observer.cpp:50:23: note: Technically the member function &#39;Observer::convCtoC&#39; can be static (but you may consider moving to unnamed namespace).
+std::string Observer::convCtoC(Color c){
+                      ^
+Observer.h:32:17: note: Technically the member function &#39;Observer::convCtoC&#39; can be static (but you may consider moving to unnamed namespace).
+    std::string convCtoC(Color);
+                ^</code></pre>
+<pre><code>Player.h:32:9: style:inconclusive: Technically the member function &#39;Player::getDeadMarble&#39; can be const. [functionConst]
+    int getDeadMarble();
+        ^
+Player.cpp:8:13: note: Technically the member function &#39;Player::getDeadMarble&#39; can be const.
+int Player::getDeadMarble(){
+            ^
+Player.h:32:9: note: Technically the member function &#39;Player::getDeadMarble&#39; can be const.
+    int getDeadMarble();
+        ^</code></pre>
+<pre><code>Player.h:42:10: style:inconclusive: Technically the member function &#39;Player::isPlayerDead&#39; can be const. [functionConst]
+    bool isPlayerDead();
+         ^
+Player.cpp:16:14: note: Technically the member function &#39;Player::isPlayerDead&#39; can be const.
+bool Player::isPlayerDead(){
+             ^
+Player.h:42:10: note: Technically the member function &#39;Player::isPlayerDead&#39; can be const.
+    bool isPlayerDead();
+         ^</code></pre>
+<pre><code>View.h:17:10: performance:inconclusive: Technically the member function &#39;View::title&#39; can be static (but you may consider moving to unnamed namespace). [functionStatic]
+    void title() const;
+         ^
+View.cpp:8:12: note: Technically the member function &#39;View::title&#39; can be static (but you may consider moving to unnamed namespace).
+void View::title() const{
+           ^
+View.h:17:10: note: Technically the member function &#39;View::title&#39; can be static (but you may consider moving to unnamed namespace).
+    void title() const;
+         ^</code></pre>
+<pre><code>View.h:18:10: performance:inconclusive: Technically the member function &#39;View::displayWinner&#39; can be static (but you may consider moving to unnamed namespace). [functionStatic]
+    void displayWinner(std::string const&amp; , std::string const &amp;, Color) const;
+         ^
+View.cpp:23:12: note: Technically the member function &#39;View::displayWinner&#39; can be static (but you may consider moving to unnamed namespace).
+void View::displayWinner(std::string const &amp;t1, std::string const &amp;t2, Color color) const{
+           ^
+View.h:18:10: note: Technically the member function &#39;View::displayWinner&#39; can be static (but you may consider moving to unnamed namespace).
+    void displayWinner(std::string const&amp; , std::string const &amp;, Color) const;
+         ^</code></pre>
+<pre><code>View.h:19:10: performance:inconclusive: Technically the member function &#39;View::displayStr&#39; can be static (but you may consider moving to unnamed namespace). [functionStatic]
+    void displayStr(std::string const &amp;);
+         ^
+View.cpp:27:12: note: Technically the member function &#39;View::displayStr&#39; can be static (but you may consider moving to unnamed namespace).
+void View::displayStr(std::string const &amp;s){
+           ^
+View.h:19:10: note: Technically the member function &#39;View::displayStr&#39; can be static (but you may consider moving to unnamed namespace).
+    void displayStr(std::string const &amp;);
+         ^</code></pre>
+<pre><code>View.h:20:10: performance:inconclusive: Technically the member function &#39;View::displayStrC&#39; can be static (but you may consider moving to unnamed namespace). [functionStatic]
+    void displayStrC(const std::string &amp;, Color);
+         ^
+View.cpp:31:12: note: Technically the member function &#39;View::displayStrC&#39; can be static (but you may consider moving to unnamed namespace).
+void View::displayStrC(std::string const &amp;p, Color c){
+           ^
+View.h:20:10: note: Technically the member function &#39;View::displayStrC&#39; can be static (but you may consider moving to unnamed namespace).
+    void displayStrC(const std::string &amp;, Color);
+         ^</code></pre>
+<pre><code>View.h:24:10: performance:inconclusive: Technically the member function &#39;View::numberV&#39; can be static (but you may consider moving to unnamed namespace). [functionStatic]
+    bool numberV(unsigned);
+         ^
+View.cpp:104:12: note: Technically the member function &#39;View::numberV&#39; can be static (but you may consider moving to unnamed namespace).
+bool View::numberV(unsigned number){
+           ^
+View.h:24:10: note: Technically the member function &#39;View::numberV&#39; can be static (but you may consider moving to unnamed namespace).
+    bool numberV(unsigned);
+         ^</code></pre>
+<pre><code>View.h:25:10: performance:inconclusive: Technically the member function &#39;View::toUpperCase&#39; can be static (but you may consider moving to unnamed namespace). [functionStatic]
+    char toUpperCase(char);
+         ^
+View.cpp:111:12: note: Technically the member function &#39;View::toUpperCase&#39; can be static (but you may consider moving to unnamed namespace).
+char View::toUpperCase(char x){
+           ^
+View.h:25:10: note: Technically the member function &#39;View::toUpperCase&#39; can be static (but you may consider moving to unnamed namespace).
+    char toUpperCase(char);
+         ^</code></pre>
+<pre><code>Game.cpp:96:0: style: The function &#39;getBoard&#39; is never used. [unusedFunction]
+
+^
+Player.cpp:16:0: style: The function &#39;isPlayerDead&#39; is never used. [unusedFunction]
+
+^</code></pre>
+<p>ok</p>
+<pre><code>nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingIncludeSystem]</code></pre>
+<p>ok</p>
+<h3 id="code-source">code source</h3>
+<h4 id="portabilité">portabilité</h4>
+<h5 id="casse-noms-fichiers">casse noms fichiers</h5>
+<p>(void)</p>
+<h5 id="séparateur">séparateur /</h5>
+<p>(void)</p>
+<h5 id="c-standard">c++ standard</h5>
+<p>(void)</p>
+<h5 id="si-pas-std-portabilité">si pas std : portabilité</h5>
+<p>(void)</p>
+<h4 id="bonnes-pratiques">bonnes pratiques</h4>
+<h5 id="déclarations-anticipées-si-possible">déclarations anticipées si possible</h5>
+<ul>
+<li><code>#include "Marble.h"</code> inutile dans <code>Board.h</code></li>
+<li><code>#include "Color.h"</code> manquant dans <code>Board.h</code></li>
+<li><code>#include &lt;memory&gt;</code> inutile dans <code>Game.h</code></li>
+</ul>
+<h5 id="using-namespace-dans-.h">using namespace dans .h</h5>
+<p>(void)</p>
+<h5 id="autre-3">autre</h5>
+<p>(void)</p>
+<h4 id="gestion-de-la-mémoire">gestion de la mémoire</h4>
+<ul>
+<li>on a <code>new</code> et <code>delete</code> dans des méthodes de <code>Board</code>, mais cette classe n’est pas équipée de destructeur, constructeurs de recopie, de déplacement, opérateurs d’assignation par recopie, par déplacement : pas ok même si pas de fuite mémoire avec <code>Board</code> dans l’application fournie</li>
+<li>on a une fuite mémoire dans <code>Game</code> : seul le 1er joueur est détruit. Q : pourquoi faire si compliqué pour créer les joueurs ?</li>
+</ul>
+<!-- #### tests unitaires
+
+(void) -->
+<h4 id="classes-métier">classes métier</h4>
+<h5 id="initialisation">initialisation</h5>
+<h6 id="plateau-et-billes">plateau et billes</h6>
+<ul>
+<li><code>Board::isSetUp()</code> ne retourne pas la valeur attendue logiquement</li>
+<li><code>Board::diffMarble()</code> contient des variables non initialisées qui peuvent poser problème</li>
+<li>sinon plateau bien initialisé</li>
+</ul>
+<h6 id="joueurs-éventuellement">joueurs (éventuellement)</h6>
+<ul>
+<li>fuite mémoire avec les joueurs (voir + haut)</li>
+</ul>
+<h5 id="mouvement-en-ligne">mouvement en ligne</h5>
+<h6 id="partie-en-cours">partie en cours</h6>
+<p>ok</p>
+<h6 id="sélection-dune-bille-de-départ">sélection d’une bille de départ</h6>
+<p>ok dans <code>Board::slideOneMarble()</code> appelé par <code>Game::moveMarble()</code></p>
+<h6 id="sélection-dune-bille-de-départ-du-joueur-actif">sélection d’une bille de départ du joueur actif</h6>
+<p>ok dans <code>Board::slideOneMarble()</code> appelé par <code>Game::moveMarble()</code></p>
+<h6 id="maximum-3-billes-du-joueur-actif-en-mouvement">maximum 3 billes du joueur actif en mouvement</h6>
+<p>ko :</p>
+<ul>
+<li>j’ai pu déplacer 4 pions <code>@</code> qui ont poussé 1 <code>O</code></li>
+</ul>
+<h6 id="emplacement-libre-dernière-dernière-bille-en-mouvement">emplacement libre dernière dernière bille en mouvement</h6>
+<p>ok</p>
+<h6 id="règle-de-poussée-des-billes-adverses-ok">règle de poussée des billes adverses ok</h6>
+<p>ko :</p>
+<ul>
+<li>si je tente une poussée impossible, le mouvement est refusé, mais c’est au joueur suivant de jouer</li>
+<li>pour le reste c’est ok</li>
+</ul>
+<h6 id="pas-de-suicide-éjection-dune-de-ses-propres-billes">pas de suicide (éjection d’une de ses propres billes)</h6>
+<p>ko : il est possible de se suicider</p>
+<h6 id="déplacement-effectif">déplacement effectif</h6>
+<p>ok</p>
+<h6 id="traitement-de-léjection-dune-bille-adverse">traitement de l’éjection d’une bille adverse</h6>
+<p>ok</p>
+<h6 id="détection-de-fin-de-partie">détection de fin de partie</h6>
+<p>ok</p>
+<h6 id="alternance-des-joueurs">alternance des joueurs</h6>
+<p>ok : bien pris en charge par <code>Game::moveMarble()</code></p>
+<h5 id="mouvement-de-côté">mouvement de côté</h5>
+<p>pas implémenté.</p>
+<h6 id="partie-en-cours-1">partie en cours</h6>
+<p>ko</p>
+<h6 id="sélection-dun-ensemble-de-billes-de-départ">sélection d’un ensemble de billes de départ</h6>
+<p>ko</p>
+<h6 id="sélection-dun-ensemble-de-billes-de-départ-du-joueur-actif">sélection d’un ensemble de billes de départ du joueur actif</h6>
+<p>ko</p>
+<h6 id="sélection-dun-ensemble-de-billes-de-départ-alignées-du-joueur-actif">sélection d’un ensemble de billes de départ alignées du joueur actif</h6>
+<p>ko</p>
+<h6 id="maximum-3-billes-du-joueur-actif-en-mouvement-1">maximum 3 billes du joueur actif en mouvement</h6>
+<p>ko</p>
+<h6 id="emplacements-libres-dernière-dernière-les-billes-en-mouvement">emplacements libres dernière dernière les billes en mouvement</h6>
+<p>ko</p>
+<h6 id="pas-de-poussée-de-bille-adverse">pas de poussée de bille adverse</h6>
+<p>ko</p>
+<h6 id="pas-de-suicide-éjection-dune-ou-plusieurs-de-ses-propres-billes">pas de suicide (éjection d’une ou plusieurs de ses propres billes)</h6>
+<p>ko</p>
+<h6 id="déplacement-effectif-1">déplacement effectif</h6>
+<p>ko</p>
+<h6 id="alternance-des-joueurs-1">alternance des joueurs</h6>
+<p>ko</p>
+<h5 id="méthodes">méthodes</h5>
+<h6 id="complètes-1-méthode-1-action-de-jeu">complètes : 1 méthode / 1 action de jeu</h6>
+<p>(void)</p>
+<h6 id="impossibilité-de-tricher-bibliothèque">impossibilité de tricher (bibliothèque)</h6>
+<p>ok : <code>Game::moveMarble()</code> gère bien le jeu</p>
+<h4 id="contrôleur">contrôleur</h4>
+<h5 id="fiabilisation-lectures-clavier">fiabilisation lectures clavier</h5>
+<p>ko :</p>
+<ul>
+<li>fournir <code>1</code>, <code>1</code>, <code>A</code>, <code>A</code> et ça plante</li>
+</ul>
+<h5 id="convivialité">convivialité</h5>
+<ul>
+<li>plateau hexagonal et coordonnée abapro : ok</li>
+<li>il n’y a pas de légende de couleur des pions : où sont les pions noirs, blancs ?</li>
+<li>plantage exception pas catchée si on ne sélectionne pas un pion de sa propre couleur</li>
+</ul>
+<h4 id="vue">vue</h4>
+<h5 id="design-pattern-observer">design pattern observer</h5>
+<p>l’implémentation de design pattern O / SdO à l’envers peut être ok, mais ce n’est pas le cas ici à mon avis. il faut que le SdO (Observable, Game) préviennent les Observer quand il se passe quelque chose. ici, le Game boucle dans <code>Observable::run()</code> mais si les observateurs ne font rien, on va avoir une boucle à vide inutile qui utilise des ressources pour rien : pas ok même si ici ça le fait car les observateurs sont aussi contrôleurs, mais en règle générale, un observateur n’est <em>pas</em> un contrôleur</p>
+<h5 id="absence-de-flux-cout-dans-classes-métier">absence de flux (cout) dans classes métier</h5>
+<p>il y a des <code>cout</code> dans :</p>
+<ul>
+<li><code>Board::clear()</code></li>
+<li><code>Game::clearPlayer()</code></li>
+</ul>
+<h4 id="autre-4">autre</h4>
+<p>(void)</p>
+<h2 id="gui">gui</h2>
+<h3 id="remise-2">remise</h3>
+<h4 id="tag-commit-2">tag / commit</h4>
+<p>ok : il y a un tag <code>gui-release</code></p>
+<h4 id="retard-2">retard</h4>
+<p>(void)</p>
+<h4 id="autre-5">autre</h4>
+<p>(void)</p>
+<h3 id="documentation-1">documentation</h3>
+<ul>
+<li>pas de fichier de configuration pour doxygen fourni</li>
+<li>les classes graphiques <code>MainWindow</code> et <code>HexCell</code> ne sont pas documentées</li>
+</ul>
+<h3 id="rapport-1">rapport</h3>
+<h4 id="format-pdf-1">format pdf</h4>
+<p>ok</p>
+<h4 id="bogue-non-signalé-1">bogue non signalé</h4>
+<p>(void)</p>
+<h4 id="écart-ajout-non-signalé-1">écart / ajout non signalé</h4>
+<p>(void)</p>
+<h4 id="autre-6">autre</h4>
+<p>(void)</p>
+<h3 id="code-source-1">code source</h3>
+<h4 id="portabilité-1">portabilité</h4>
+<h5 id="casse-noms-fichiers-1">casse noms fichiers</h5>
+<p>(void)</p>
+<h5 id="séparateur-1">séparateur /</h5>
+<p>(void)</p>
+<h5 id="c-standard-qt">c++ standard + qt</h5>
+<p>(void)</p>
+<h5 id="si-pas-std-qt-portabilité">si pas std + qt : portabilité</h5>
+<p>(void)</p>
+<h4 id="gestion-de-la-mémoire-1">gestion de la mémoire</h4>
+<ul>
+<li>fuites mémoire dans <code>Game::Game()</code></li>
+</ul>
+<h4 id="contrôleur-1">contrôleur</h4>
+<h5 id="respect-des-règles">respect des règles</h5>
+<p>semble ok… sauf que pas de mouvement latéral</p>
+<h5 id="convivialité-1">convivialité</h5>
+<ul>
+<li>l’obligation de confirmer via un bouton dédié est un peu lourde, mais ça le fait</li>
+</ul>
+<h4 id="vue-1">vue</h4>
+<h5 id="design-pattern-observer-1">design pattern observer</h5>
+<p>ko : pas d’O / SdO dans l’application gui. voir application console où le contrôleur est l’observateur. ceci n’est pas possible avec application à interface graphique car on ne contrôle pas le flux des actions de l’utilisateur</p>
+<h5 id="convivialité-2">convivialité</h5>
+<p>ok : la vue est claire, on voit où on en est</p>
+<h4 id="autre-7">autre</h4>
+<p>(void)</p>
+<h2 id="examen">examen</h2>
+<p>voir prise de notes manuscrites</p>
